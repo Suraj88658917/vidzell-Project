@@ -11,25 +11,27 @@ import { wp, hp } from "../../../utils/responsive";
 import { COLORS } from "../../../utils/colors";
 import { FONTS } from "../../../utils/fonts";
 
-import GoogleLogin from "../loginScreen/components/GoogleLogin";
-import PhoneInput from "../loginScreen/components/PhoneInput";
-import OtpBtn from "../loginScreen/components/OTPBtn";
+import GoogleLogin from "../../common/GoogleLogin";
+import PhoneInput from "../../common/PhoneInput";
+import OtpBtn from "../../common/OTPBtn";
+import TermsConditions from "../../common/TermsConditions"
 
 type NavProp = NativeStackNavigationProp<StackParamList, "Login">;
 
 const LoginScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
   const [phone, setPhone] = useState("");
+   const [agreed, setAgreed] = useState(false);
 
   const isValid = phone.length === 10;
 
   const handleSendOtp = () => {
-  if (phone.length !== 10) return;
+    if (phone.length !== 10) return;
 
-  navigation.navigate("VerifyOTP", { phone });
-  // navigation.navigate("VerifyOTP", { phone: `+91${phone}` });
-  
-};
+    // navigation.navigate("VerifyOTP", { phone });
+    navigation.navigate("VerifyOTP", { phone: `+91${phone}` , mode: "LOGIN", });
+
+  };
 
   return (
     <LinearGradient
@@ -51,16 +53,27 @@ const LoginScreen: React.FC = () => {
           {/* HEADER */}
           <View style={styles.header}>
             <Logo width={wp("47%")} height={hp("23%")} />
-            <Text style={styles.title}>Welcome to Vidzell</Text>
-            <Text style={styles.subtitle}>Login to Get Started</Text>
+            <Text style={styles.title}>Login/Signup to start Shopping</Text>
+            <Text style={styles.subtitle}>Enter your details to get started</Text>
           </View>
 
           {/* INPUT SECTION */}
           <View style={styles.form}>
-            {/* <PhoneInput value={phone} onChange={setPhone} /> */}
+            <PhoneInput value={phone} onChange={setPhone} />
 
-            <OtpBtn disabled={!isValid} onPress={handleSendOtp} />
-          </View>
+              <TermsConditions
+              checked={agreed}
+              onToggle={() => setAgreed((prev) => !prev)}
+            />
+            </View>
+         
+             <OtpBtn
+              title="Send OTP"
+              disabled={!isValid || phone.length < 10}
+              onPress={handleSendOtp}
+            />
+           
+          
 
           {/* DIVIDER */}
           <View style={styles.divider}>
@@ -96,7 +109,7 @@ const styles = StyleSheet.create({
 
   header: {
     alignItems: "center",
-    marginTop:wp("5%")
+    marginTop: wp("5%")
   },
 
   title: {

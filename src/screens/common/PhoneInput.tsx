@@ -7,10 +7,10 @@ import {
   Modal,
 } from "react-native";
 import { CountryPicker } from "react-native-country-codes-picker";
-// import { FloatingLabelInput } from "react-native-floating-label-input";
+import { FloatingLabelInput } from "react-native-floating-label-input";
 
-import { wp, hp } from "../../../../utils/responsive";
-import { FONTS } from "../../../../utils/fonts";
+import { wp, hp } from "../../utils/responsive";
+import { FONTS } from "../../utils/fonts";
 
 type Props = {
   value: string;
@@ -18,21 +18,30 @@ type Props = {
 };
 
 const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
-  const [error, setError] = useState("");
-  const [show, setShow] = useState(false);
-  const [callingCode, setCallingCode] = useState("+91");
-  const [flag, setFlag] = useState("🇮🇳");
+  const [error, setError] = useState<string>("");
+  const [show, setShow] = useState<boolean>(false);
+  const [callingCode, setCallingCode] = useState<string>("+91");
+  const [isFocused, setIsFocused] = useState<boolean>(false);
 
   const handleChange = (text: string) => {
     const cleaned = text.replace(/\D/g, "").slice(0, 10);
     onChange(cleaned);
 
     if (cleaned.length > 0 && cleaned.length < 10) {
-      setError("Enter valid 10 digit phone number");
+      setError("Enter valid 10-digit phone number");
     } else {
       setError("");
     }
   };
+
+  // Border color logic
+  const getBorderColor = () => {
+    if (error) return "#ff0909";
+    if (isFocused) return "rgba(255,255,255,0.2)";
+    return "rgba(255,255,255,0.2)";
+  };
+
+  const isError = error.length > 0;
 
   return (
     <View style={styles.container}>
@@ -40,36 +49,60 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
 
         {/* COUNTRY CODE BUTTON */}
         <TouchableOpacity
-          style={styles.countryBtn}
+          style={[
+            styles.countryBtn,
+            { borderColor: getBorderColor() },
+          ]}
           onPress={() => setShow(true)}
           activeOpacity={0.7}
         >
-          <Text style={styles.flag}>{flag}</Text>
           <Text style={styles.code}>{callingCode}</Text>
         </TouchableOpacity>
 
         {/* PHONE INPUT */}
-        <View style={styles.inputWrap}>
-          {/* <FloatingLabelInput
+        <View  style={{ flex: 1}}>
+          <FloatingLabelInput
             label="Phone Number"
             value={value}
             onChangeText={handleChange}
             keyboardType="phone-pad"
             maxLength={10}
-            containerStyles={styles.inputContainer}
-            inputStyles={styles.input}
-            labelStyles={styles.label}
-            customLabelStyles={{
-              colorFocused: "#fff",
-              colorBlurred: "rgba(255,255,255,0.5)",
+            staticLabel
+            containerStyles={{
+              ...styles.inputContainer,
+              borderColor: isError
+                ? "#ef1212"
+                : "rgba(255,255,255,0.2)",
             }}
-          /> */}
+
+            inputStyles={styles.input}
+
+            labelStyles={{
+              fontFamily: FONTS.regular,
+              backgroundColor: "#1d103e78",
+              paddingHorizontal: 6,
+              color: isError ? "#ff0000" : "rgba(255,255,255,0.5)",
+            }}
+
+            customLabelStyles={{
+              colorFocused: isError ? "#ff0000" : "#fff",
+              colorBlurred: "rgba(255,255,255,0.5)",
+              fontSizeFocused:10,
+              fontSizeBlurred: wp("3.5%"),
+              leftFocused: 10,
+              leftBlurred: 10,
+              topFocused: -8,
+             
+
+            }}
+          />
         </View>
+
       </View>
 
       {!!error && <Text style={styles.error}>{error}</Text>}
 
-      {/* COUNTRY PICKER */}
+      {/* COUNTRY PICKER MODAL */}
       <Modal
         visible={show}
         transparent
@@ -81,7 +114,6 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
           lang="en"
           pickerButtonOnPress={(item) => {
             setCallingCode(item.dial_code);
-            setFlag(item.flag);
             setShow(false);
           }}
           onBackdropPress={() => setShow(false)}
@@ -104,15 +136,12 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
               borderBottomColor: "rgba(255,255,255,0.08)",
             },
             countryName: {
-              color: "#fff",
+              color: "#ffffff",
               fontFamily: FONTS.regular,
             },
             dialCode: {
               color: "rgba(255,255,255,0.5)",
               fontFamily: FONTS.regular,
-            },
-            flag: {
-              fontSize: 22,
             },
             line: {
               backgroundColor: "rgba(255,255,255,0.08)",
@@ -139,21 +168,16 @@ const styles = StyleSheet.create({
   countryBtn: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
+    gap: 6,
     marginRight: wp("2%"),
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
     borderRadius: 10,
-    paddingHorizontal: wp("3%"),
+    paddingHorizontal: wp("4%"),
     height: 55,
   },
 
-  flag: {
-    fontSize: wp("5%"),
-  },
-
   code: {
-    fontSize: wp("4%"),
+    fontSize: wp("3.5%"),
     fontFamily: FONTS.semiBold,
     color: "#7D89B0",
   },
@@ -164,7 +188,6 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.2)",
     borderRadius: 10,
     paddingHorizontal: 12,
     height: 55,
@@ -174,10 +197,13 @@ const styles = StyleSheet.create({
     fontSize: wp("4%"),
     fontFamily: FONTS.regular,
     color: "#fff",
+    paddingTop: 20,
   },
 
   label: {
     fontFamily: FONTS.regular,
+    color: "rgba(255, 255, 255, 0.75)",
+
   },
 
   error: {

@@ -6,6 +6,8 @@ import WalkThroughScreen from "../screens/authScreens/walkThroughScreen/WalkThro
 import LoginScreen from "../screens/authScreens/loginScreen/LoginScreen";
 import SignUpScreen from "../screens/authScreens/signUpScreen/SignUpScreen";
 import VerifyOTP from "../screens/authScreens/verifyOTP/VerifyTOP";
+import TermsConditions from "../screens/appScreens/PolicyScreen/TermsConditions"
+import PrivacyPolicy from "../screens/appScreens/PolicyScreen/PrivacyPolicy"
 
 import MainTabNavigator from "../navigation/MainTabNavigator";
 
@@ -21,7 +23,10 @@ const StackNavigator = () => {
       <Stack.Screen name="WalkThrough" component={WalkThroughScreen} />
       <Stack.Screen name="Login" component={LoginScreen} />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
-       <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+      <Stack.Screen name="VerifyOTP" component={VerifyOTP} />
+
+      <Stack.Screen name="TermsConditions" component={TermsConditions} />
+      <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
 
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
 

@@ -8,8 +8,8 @@ import {
   View,
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
-import { wp, hp } from "../../../../utils/responsive";
-import { FONTS } from "../../../../utils/fonts";
+import { wp, hp } from "../../utils/responsive";
+import { FONTS } from "../../utils/fonts";
 
 type Props = {
   title: string;

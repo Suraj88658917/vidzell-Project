@@ -4,7 +4,12 @@ export type StackParamList = {
   Login: undefined;
   SignUp: undefined;
   MainTabs: undefined;
-   VerifyOTP: { phone: string };
+  VerifyOTP: { phone: string ,   mode: "LOGIN" | "REGISTER"; };
+  Terms: undefined;
+  Privacy: undefined;
+  TermsConditions: undefined;
+  PrivacyPolicy: undefined;
+
 };
 
 export type TabParamList = {
@@ -12,4 +17,5 @@ export type TabParamList = {
   Cart: undefined;
   Category: undefined;
   Wishlist: undefined;
+
 };

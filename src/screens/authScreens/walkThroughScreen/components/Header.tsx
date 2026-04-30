@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: wp("5%"),
-    marginTop:wp("10%")
+    marginTop:wp("10%"),
   },
 
   skipText: {

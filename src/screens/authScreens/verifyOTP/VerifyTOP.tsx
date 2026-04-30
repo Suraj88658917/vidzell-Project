@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Text,
@@ -15,9 +15,9 @@ import LinearGradient from "react-native-linear-gradient";
 
 import { StackParamList } from "../../../navigation/types";
 import OTPInput from "../verifyOTP/components/OTPInput";
-import Button from "../verifyOTP/components/Button";
+import Button from "../../common/Button";
 import OtpTimer from "../verifyOTP/components/OtpTimer";
-import SuccessModal from "../verifyOTP/components/SuccessModal";
+import SuccessModal from "../../common/SuccessModal";
 
 import { COLORS } from "../../../utils/colors";
 import { FONTS } from "../../../utils/fonts";
@@ -27,70 +27,69 @@ import Arrow from "../../../assets/images/arrow.svg";
 type RouteProps = RouteProp<StackParamList, "VerifyOTP">;
 type NavProps = NativeStackNavigationProp<StackParamList, "VerifyOTP">;
 
+const MAX_ATTEMPTS = 3;
+const CORRECT_OTP = "123456";
+
+const OTP_ERRORS = {
+  INVALID: "Invalid OTP",
+  TOO_MANY: "Too many OTP requests for this number.\nPlease try again after 1 hour.",
+} as const;
+
 const VerifyOTP: React.FC = () => {
   const route = useRoute<RouteProps>();
   const navigation = useNavigation<NavProps>();
 
-  const phone = route?.params?.phone ?? "";
+  const phone = route.params?.phone ?? "";
+  const mode = route.params?.mode ?? "LOGIN";
 
-  const [otp, setOtp] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [attempts, setAttempts] = useState<number>(0);
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [otp, setOtp] = useState("");
+  const [error, setError] = useState("");
+  const [attempts, setAttempts] = useState(0);
+  const [showModal, setShowModal] = useState(false);
 
-  const MAX_ATTEMPTS = 3;
+  const isLocked = attempts >= MAX_ATTEMPTS;
 
-  const OTP_ERRORS = {
-    INVALID: "Invalid OTP",
-    TOO_MANY:
-      "Too many OTP requests for this number.\nPlease try again after 1 hour.",
-  } as const;
+  const handleOtpChange = useCallback((val: string) => {
+    setOtp(val);
+    if (error) setError("");
+  }, [error]);
 
-  // optional debug (safe)
-  useEffect(() => {
-    console.log("PHONE PARAM:", phone);
-  }, [phone]);
-
-  const handleVerify = (): void => {
-    if (attempts >= MAX_ATTEMPTS) {
+  const handleVerify = useCallback((): void => {
+    if (isLocked) {
       setError(OTP_ERRORS.TOO_MANY);
       return;
     }
 
-    // wrong otp
-    if (otp !== "123456") {
+    if (otp !== CORRECT_OTP) {
       setAttempts((prev) => {
-        const updated = prev + 1;
-
-        setError(
-          updated >= MAX_ATTEMPTS
-            ? OTP_ERRORS.TOO_MANY
-            : OTP_ERRORS.INVALID
-        );
-
-        if (updated >= MAX_ATTEMPTS) {
-          setOtp(""); 
-        }
-
-        return updated;
+        const next = prev + 1;
+        setError(next >= MAX_ATTEMPTS ? OTP_ERRORS.TOO_MANY : OTP_ERRORS.INVALID);
+        if (next >= MAX_ATTEMPTS) setOtp("");
+        return next;
       });
-
       return;
     }
 
-
-    // SUCCESS
     setError("");
     setAttempts(0);
     setShowModal(true);
-
-     setTimeout(() => {
+          
+    setTimeout(() => {
       setShowModal(false);
+       if (mode === "REGISTER") {
+      navigation.replace("MainTabs"); 
+    } else {
       navigation.replace("MainTabs");
+    }
     }, 1000);
-  };
+    
+  }, [otp, isLocked, navigation , mode]);
 
-  const isTooMany = error === OTP_ERRORS.TOO_MANY;
+  const handleResend = useCallback(() => {
+    setAttempts(0);
+    setError("");
+    setOtp("");
+  }, []);
 
   return (
     <LinearGradient
@@ -102,66 +101,76 @@ const VerifyOTP: React.FC = () => {
       <StatusBar barStyle="light-content" translucent />
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={{ flex: 1 }}
+        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        style={styles.flex}
       >
-        <ScrollView contentContainerStyle={styles.scroll}>
+        <ScrollView
+          contentContainerStyle={[styles.scroll, { flexGrow: 1 }]}
+          keyboardShouldPersistTaps="handled"
+          showsVerticalScrollIndicator={false}
+        >
           {/* HEADER */}
           <View style={styles.header}>
             <Text style={styles.title}>
-              Enter the OTP and verify {"\n"} to continue
+              Enter the OTP and verify{"\n"}to continue
             </Text>
-
             <Text style={styles.subtitle}>
-              A code has been sent to your {phone}
+              A code has been sent to {phone}
             </Text>
           </View>
 
           {/* OTP INPUT */}
           <OTPInput
             value={otp}
-            onChange={(val: string) => {
-              setOtp(val);
-              if (error) setError("");
-            }}
+            onChange={handleOtpChange}
             error={error}
           />
 
           {/* ERROR */}
           {!!error && (
-            <Text style={[styles.errorText, isTooMany && styles.errorBlock]}>
-              {error}
+            <Text style={[
+              styles.errorText,
+              isLocked && styles.errorBlock,
+              { opacity: error ? 1 : 0 }
+            ]}>
+              {error || "placeholder"}
             </Text>
           )}
 
-          {/* TIMER */}
-          <View style={{ alignItems: "center", marginTop: wp("10%") }}>
-            <Text style={styles.smallText}>Didn’t get the OTP?</Text>
+          {/* RESEND */}
+          <View style={styles.resendWrap}>
+            <Text style={styles.smallText}>Didn't get the OTP?</Text>
+            <OtpTimer duration={30} onResend={handleResend} />
           </View>
-
-          <OtpTimer
-            duration={30}
-            onResend={() => console.log("Resend OTP")}
-          />
 
           {/* BUTTON */}
-          <View style={{ marginTop: wp("12%") }}>
-            <Button title="Verify OTP" onPress={handleVerify} />
-          </View>
+          <Button
+            title="Verify OTP"
+            onPress={handleVerify}
+            disabled={otp.length < 6 || isLocked}
+          />
 
           {/* BACK */}
-          <TouchableOpacity
-            style={styles.backBtn}
-            onPress={() => navigation.goBack()}
-          >
-            <Arrow width={wp("5%")} height={hp("3%")} />
-            <Text style={styles.backText}>Back to Login</Text>
-          </TouchableOpacity>
+          <View>
+            <TouchableOpacity
+              style={styles.backBtn}
+              onPress={() => navigation.goBack()}
+              activeOpacity={0.7}
+            >
+              <Arrow width={wp("5%")} height={hp("3%")} />
+              <Text style={styles.backText}>Back to Login</Text>
+            </TouchableOpacity>
+          </View>
 
-          {/* SUCCESS MODAL */}
-          <SuccessModal visible={showModal} />
+          <SuccessModal
+            visible={showModal}
+            type={mode === "REGISTER" ? "REGISTER" : "OTP"}
+            onClose={() => setShowModal(false)}
+          />
+
         </ScrollView>
       </KeyboardAvoidingView>
+
     </LinearGradient>
   );
 };
@@ -171,9 +180,12 @@ export default VerifyOTP;
 const styles = StyleSheet.create({
   container: { flex: 1 },
 
+  flex: { flex: 1 },
+
   scroll: {
     flexGrow: 1,
-    padding: 20,
+    paddingHorizontal: wp("5%"),
+    paddingBottom: hp("5%"),
   },
 
   header: {
@@ -186,39 +198,57 @@ const styles = StyleSheet.create({
     fontSize: wp("6%"),
     textAlign: "center",
     fontFamily: FONTS.semiBold,
+    lineHeight: wp("8%"),
   },
 
   subtitle: {
     color: "#AEA7C3",
     textAlign: "center",
-    marginTop: 10,
+    marginTop: hp("1%"),
+    fontFamily: FONTS.regular,
+    fontSize: wp("3.5%"),
   },
 
   errorText: {
     color: "red",
     textAlign: "center",
-    marginTop: 10,
+    marginTop: hp("1%"),
+    fontFamily: FONTS.regular,
+    fontSize: wp("3.5%"),
   },
 
   errorBlock: {
     backgroundColor: "rgba(255,0,0,0.1)",
     padding: 10,
     borderRadius: 8,
+    overflow: "hidden",
+  },
+
+  resendWrap: {
+    alignItems: "center",
+    marginTop: hp("10%"),
+    marginBottom: hp("4%"),
+    gap: hp("0.5%"),
   },
 
   smallText: {
     color: "#BBBABD",
+    fontFamily: FONTS.regular,
+    fontSize: wp("3.5%"),
   },
 
   backBtn: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: wp("5%"),
+    marginTop: hp("2%"),
+    paddingVertical: hp("1%"),
   },
 
   backText: {
     marginLeft: 6,
     color: "#948DA7",
+    fontFamily: FONTS.regular,
+    fontSize: wp("3.5%"),
   },
 });

@@ -6,10 +6,10 @@ import {
   TouchableOpacity,
 } from "react-native";
 
-import Google from "../../../../assets/images/google.svg";
-import { wp, hp } from "../../../../utils/responsive";
-import { FONTS } from "../../../../utils/fonts";
-import { COLORS } from "../../../../utils/colors";
+import Google from "../../assets/images/google.svg";
+import { wp, hp } from "../../utils/responsive";
+import { FONTS } from "../../utils/fonts";
+import { COLORS } from "../../utils/colors";
 
 type Props = {
   onPress?: () => void;

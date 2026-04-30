@@ -20,8 +20,8 @@ const slides: SlideType[] = [
   {
     id: "1",
     image :Item1,
-    title: "Discover Products Through Video",
-    description: "Explore trending styles, creator picks, and\n new launches in short engaging videos\n designed just for you",
+    title: "Your Personalized Video Feed",
+    description: "Explore short videos featuring styles, creator\n picks, and new launches recommended\n based on your preferences.",
   },
   {
     id: "2",
