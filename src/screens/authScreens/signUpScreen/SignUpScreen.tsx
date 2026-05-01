@@ -14,11 +14,11 @@ import { FONTS } from "../../../utils/fonts";
 import GoogleLogin from "../../common/GoogleLogin";
 import PhoneInput from "../../common/PhoneInput";
 import OtpBtn from "../../common/OTPBtn";
-import TermsConditions from "../../common/TermsConditions"
+import Agree from "../../common/Agree"
 
 type NavProp = NativeStackNavigationProp<StackParamList, "Login">;
 
-const LoginScreen: React.FC = () => {
+const SignupScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
   const [phone, setPhone] = useState("");
    const [agreed, setAgreed] = useState(false);
@@ -61,7 +61,7 @@ const LoginScreen: React.FC = () => {
           <View style={styles.form}>
             <PhoneInput value={phone} onChange={setPhone} />
 
-            <TermsConditions
+            <Agree
               checked={agreed}
               onToggle={() => setAgreed((prev) => !prev)}
             />
@@ -92,7 +92,7 @@ const LoginScreen: React.FC = () => {
   );
 };
 
-export default LoginScreen;
+export default SignupScreen;
 
 const styles = StyleSheet.create({
   container: {

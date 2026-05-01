@@ -14,7 +14,7 @@ import { FONTS } from "../../../utils/fonts";
 import GoogleLogin from "../../common/GoogleLogin";
 import PhoneInput from "../../common/PhoneInput";
 import OtpBtn from "../../common/OTPBtn";
-import TermsConditions from "../../common/TermsConditions"
+import Agree from "../../common/Agree"
 
 type NavProp = NativeStackNavigationProp<StackParamList, "Login">;
 
@@ -61,7 +61,7 @@ const LoginScreen: React.FC = () => {
           <View style={styles.form}>
             <PhoneInput value={phone} onChange={setPhone} />
 
-              <TermsConditions
+              <Agree
               checked={agreed}
               onToggle={() => setAgreed((prev) => !prev)}
             />

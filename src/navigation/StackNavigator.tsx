@@ -6,8 +6,8 @@ import WalkThroughScreen from "../screens/authScreens/walkThroughScreen/WalkThro
 import LoginScreen from "../screens/authScreens/loginScreen/LoginScreen";
 import SignUpScreen from "../screens/authScreens/signUpScreen/SignUpScreen";
 import VerifyOTP from "../screens/authScreens/verifyOTP/VerifyTOP";
-import TermsConditions from "../screens/appScreens/PolicyScreen/TermsConditions"
-import PrivacyPolicy from "../screens/appScreens/PolicyScreen/PrivacyPolicy"
+import TermsConditions from "../screens/appScreens/PolicyScreen/TermsConditions/TermsConditions"
+import PrivacyPolicy from "../screens/appScreens/PolicyScreen/PrivacyPolicy/PrivacyPolicy"
 
 import MainTabNavigator from "../navigation/MainTabNavigator";
 

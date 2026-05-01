@@ -20,9 +20,11 @@ const Header: React.FC<Props> = ({ title, onBack, rightComponent }) => {
     <View style={styles.container}>
       
       {/* LEFT (BACK BUTTON) */}
-      <TouchableOpacity onPress={onBack} style={styles.left}>
-        <BackArrow width={wp("13%")} height={hp("13%")} />
+      <View >
+        <TouchableOpacity onPress={onBack} style={styles.left}>
+        <BackArrow width={wp("12%")} height={hp("12%")} />
       </TouchableOpacity>
+      </View>
 
       {/* CENTER TITLE */}
       <Text style={styles.title}>{title}</Text>
