@@ -77,9 +77,9 @@ const VerifyOTP: React.FC = () => {
     setTimeout(() => {
       setShowModal(false);
        if (mode === "REGISTER") {
-      navigation.replace("MainTabs"); 
+      navigation.replace("SelectCategories"); 
     } else {
-      navigation.replace("MainTabs");
+      navigation.replace("SelectCategories");
     }
     }, 1000);
     
@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
   },
 
   header: {
-    marginTop: hp("20%"),
+    marginTop: hp("25%"),
     marginBottom: hp("5%"),
   },
 
@@ -219,8 +219,8 @@ const styles = StyleSheet.create({
 
   errorBlock: {
     backgroundColor: "rgba(255,0,0,0.1)",
-    padding: 10,
-    borderRadius: 8,
+    padding: wp("2.5%"),
+    borderRadius:  wp("2%"),
     overflow: "hidden",
   },
 
@@ -246,7 +246,7 @@ const styles = StyleSheet.create({
   },
 
   backText: {
-    marginLeft: 6,
+    marginLeft: wp("1.5%"),
     color: "#948DA7",
     fontFamily: FONTS.regular,
     fontSize: wp("3.5%"),

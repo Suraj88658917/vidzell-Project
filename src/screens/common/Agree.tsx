@@ -10,6 +10,7 @@ import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { StackParamList } from "../../navigation/types";
 import { FONTS } from "../../utils/fonts";
+import { wp, hp } from "../../utils/responsive"; 
 
 type NavProps = NativeStackNavigationProp<StackParamList>;
 
@@ -68,41 +69,41 @@ export default TermsConditions;
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 12,
-    marginBottom: 16,
+    marginTop: hp("1.5%"),     
+    marginBottom: hp("2%"),    
   },
 
   row: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 7,
+    gap: wp("1.8%"),           
   },
 
   checkWrap: {
-    width: 22,
-    height: 22,
+    width: wp("5.8%"),           
+    height: wp("5.8%"),         
   },
 
   checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
+    width: wp("5.8%"),          
+    height: wp("5.8%"),         
+    borderRadius: wp("1.5%"),   
     alignItems: "center",
     justifyContent: "center",
   },
 
   checkboxEmpty: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
-    borderWidth: 1.5,
+    width: wp("5.8%"),           
+    height: wp("5.8%"),         
+    borderRadius: wp("1.5%"),   
+    borderWidth: 1.5,          
     borderColor: "rgba(255,255,255,0.4)",
     backgroundColor: "transparent",
   },
 
   tick: {
-    width: 12,
-    height: 12,
+    width: wp("3.2%"),          
+    height: wp("3.2%"),        
     alignItems: "center",
     justifyContent: "center",
     position: "relative",
@@ -110,23 +111,23 @@ const styles = StyleSheet.create({
 
   tickLeft: {
     position: "absolute",
-    width: 4,
-    height: 1.8,
+    width: wp("1%"),            
+    height: wp("0.5%"),        
     backgroundColor: "#fff",
-    borderRadius: 1,
-    bottom: 2,
+    borderRadius: wp("0.3%"),    
+    bottom: wp("0.5%"),         
     left: 0,
     transform: [{ rotate: "45deg" }],
   },
 
   tickRight: {
     position: "absolute",
-    width: 8,
-    height: 1.8,
+    width: wp("2.1%"),          
+    height: wp("0.5%"),         
     backgroundColor: "#fff",
-    borderRadius: 1,
-    bottom: 3.5,
-    left: 1,
+    borderRadius: wp("0.3%"),    
+    bottom: wp("0.9%"),          
+    left: wp("0.3%"),            
     transform: [{ rotate: "-55deg" }],
   },
 
@@ -139,13 +140,13 @@ const styles = StyleSheet.create({
 
   agreeText: {
     color: "rgb(255, 255, 255)",
-    fontSize: 11,
-    fontFamily:FONTS.regular
+    fontSize: wp("3%"),         
+    fontFamily: FONTS.regular,
   },
 
   linkText: {
     color: "#ffffff",
-    fontSize: 11,
+    fontSize: wp("3%"),         
     fontFamily: FONTS.semiBold,
     textDecorationLine: "underline",
   },

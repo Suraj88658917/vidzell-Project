@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
 
   button: {
     height: hp("7%"), 
-    borderRadius: 10,
+     borderRadius: wp("2.5%"), 
     justifyContent: "center",
     alignItems: "center",
   },

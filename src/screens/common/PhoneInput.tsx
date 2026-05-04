@@ -34,7 +34,6 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
     }
   };
 
-  // Border color logic
   const getBorderColor = () => {
     if (error) return "#ff0909";
     if (isFocused) return "rgba(255,255,255,0.2)";
@@ -49,10 +48,7 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
 
         {/* COUNTRY CODE BUTTON */}
         <TouchableOpacity
-          style={[
-            styles.countryBtn,
-            { borderColor: getBorderColor() },
-          ]}
+          style={[styles.countryBtn, { borderColor: getBorderColor() }]}
           onPress={() => setShow(true)}
           activeOpacity={0.7}
         >
@@ -60,7 +56,7 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
         </TouchableOpacity>
 
         {/* PHONE INPUT */}
-        <View  style={{ flex: 1}}>
+        <View style={{ flex: 1 }}>
           <FloatingLabelInput
             label="Phone Number"
             value={value}
@@ -70,30 +66,23 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
             staticLabel
             containerStyles={{
               ...styles.inputContainer,
-              borderColor: isError
-                ? "#ef1212"
-                : "rgba(255,255,255,0.2)",
+              borderColor: isError ? "#ef1212" : "rgba(255,255,255,0.2)",
             }}
-
             inputStyles={styles.input}
-
             labelStyles={{
               fontFamily: FONTS.regular,
               backgroundColor: "#1d103e78",
-              paddingHorizontal: 6,
+              paddingHorizontal: wp("2%"),
               color: isError ? "#ff0000" : "rgba(255,255,255,0.5)",
             }}
-
             customLabelStyles={{
               colorFocused: isError ? "#ff0000" : "#fff",
               colorBlurred: "rgba(255,255,255,0.5)",
-              fontSizeFocused:10,
+              fontSizeFocused: wp("2.5%"), 
               fontSizeBlurred: wp("3.5%"),
-              leftFocused: 10,
-              leftBlurred: 10,
-              topFocused: -8,
-             
-
+              leftFocused: wp("2.5%"),        
+              leftBlurred: wp("2.5%"),        
+              topFocused: -hp("1%"),        
             }}
           />
         </View>
@@ -124,10 +113,10 @@ const PhoneInput: React.FC<Props> = ({ value, onChange }) => {
             },
             textInput: {
               backgroundColor: "rgba(255,255,255,0.08)",
-              borderRadius: 8,
+              borderRadius: wp("4%"),
               color: "#fff",
-              paddingHorizontal: 12,
-              height: 45,
+              paddingHorizontal: wp("7%"),
+              height: hp("7%"),
               fontFamily: FONTS.regular,
             },
             countryButtonStyles: {
@@ -168,12 +157,12 @@ const styles = StyleSheet.create({
   countryBtn: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
+    gap: wp("3%"),
     marginRight: wp("2%"),
     borderWidth: 1,
-    borderRadius: 10,
+    borderRadius: wp("2.5%"),      
     paddingHorizontal: wp("4%"),
-    height: 55,
+    height: hp("7.2%"),
   },
 
   code: {
@@ -188,22 +177,21 @@ const styles = StyleSheet.create({
 
   inputContainer: {
     borderWidth: 1,
-    borderRadius: 10,
-    paddingHorizontal: 12,
-    height: 55,
+    borderRadius: wp("2.5%"),     
+    paddingHorizontal: wp("5%"),
+    height: hp("7%"),             
   },
 
   input: {
     fontSize: wp("4%"),
     fontFamily: FONTS.regular,
     color: "#fff",
-    paddingTop: 20,
+    paddingTop: hp("2.5%"),     
   },
 
   label: {
     fontFamily: FONTS.regular,
     color: "rgba(255, 255, 255, 0.75)",
-
   },
 
   error: {

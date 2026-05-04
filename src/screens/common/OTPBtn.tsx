@@ -11,7 +11,7 @@ import { FONTS } from "../../utils/fonts";
 import { wp, hp } from "../../utils/responsive";
 
 type Props = {
-  title: string;     
+  title: string;
   disabled?: boolean;
   loading?: boolean;
   onPress: () => void;
@@ -69,10 +69,10 @@ const styles = StyleSheet.create({
   button: {
     width: "100%",
     height: hp("6.6%"),
-    borderRadius: 10,
+    borderRadius: wp("2.5%"),   
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 20,
+    marginTop: hp("2.5%"),    
   },
   text: {
     fontSize: wp("4%"),

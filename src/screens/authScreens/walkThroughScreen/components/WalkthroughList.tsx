@@ -90,15 +90,15 @@ const WalkthroughList: React.FC<Props> = ({ data, onDone }) => {
             </View>
 
             {/*  BUTTON */}
-            {index === data.length - 1 &&  (
-                    
-                    <View style={{padding:10 , marginTop:wp("14")}}>
-                        <OtpBtn
+            {index === data.length - 1 && (
+
+                <View style={{ padding: 16, marginTop: wp("14") }}>
+                    <OtpBtn
                         title="Get Started"
                         onPress={onDone}
                     />
-                        </View>
-                
+                </View>
+
             )}
         </View>
     );
@@ -106,7 +106,6 @@ const WalkthroughList: React.FC<Props> = ({ data, onDone }) => {
 
 export default WalkthroughList;
 
-//  Styles
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -135,27 +134,26 @@ const styles = StyleSheet.create({
         fontFamily: FONTS.regular
     },
 
-    // DOTS 
     dotsContainer: {
         position: "absolute",
         bottom: hp("16%"),
         flexDirection: "row",
         alignSelf: "center",
-
-
     },
 
     dot: {
-        height: 8,
-        width: 8,
-        borderRadius: 4,
+        height: hp("1.3%"),
+        width: wp("3%"),
+        borderRadius: wp("2%"),
         backgroundColor: COLORS.white,
-        marginHorizontal: 4,
+        marginHorizontal: wp("1%"),
         opacity: 0.3,
     },
 
     activeDot: {
-        width: 30,
+        width: wp("9%"),
+        height: hp("1.3%"),
+        borderRadius: wp("2.5%"),
         opacity: 1,
         backgroundColor: "#7933AF",
     },

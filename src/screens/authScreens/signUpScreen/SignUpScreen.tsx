@@ -28,7 +28,6 @@ const SignupScreen: React.FC = () => {
   const handleSendOtp = () => {
     if (phone.length !== 10) return;
 
-    // navigation.navigate("VerifyOTP", { phone });
     navigation.navigate("VerifyOTP", { phone: `+91${phone}` ,  mode: "REGISTER", });
 
   };
@@ -129,7 +128,7 @@ const styles = StyleSheet.create({
 
   line: {
     flex: 1,
-    height: 1,
+    height: wp("0.4%"),
     backgroundColor: "#322D43",
   },
 
@@ -143,6 +142,6 @@ const styles = StyleSheet.create({
   scroll: {
     flexGrow: 1,
     justifyContent: "center",
-    padding: 20,
+    padding: wp("5%"),
   },
 });

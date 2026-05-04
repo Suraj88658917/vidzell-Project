@@ -19,17 +19,14 @@ const Header: React.FC<Props> = ({ title, onBack, rightComponent }) => {
   return (
     <View style={styles.container}>
       
-      {/* LEFT (BACK BUTTON) */}
       <View >
         <TouchableOpacity onPress={onBack} style={styles.left}>
         <BackArrow width={wp("12%")} height={hp("12%")} />
       </TouchableOpacity>
       </View>
 
-      {/* CENTER TITLE */}
       <Text style={styles.title}>{title}</Text>
 
-      {/* RIGHT (OPTIONAL) */}
       <View style={styles.right}>
         {rightComponent}
       </View>

@@ -69,16 +69,16 @@ const styles = StyleSheet.create({
     width: "100%",
     height: hp("35%"),
     backgroundColor: "#020015",
-    borderTopLeftRadius: 25,
-    borderTopRightRadius: 25,
+    borderTopLeftRadius: wp("6%"),
+    borderTopRightRadius: wp("6%"),
     alignItems: "center",
     justifyContent: "center",
-    paddingHorizontal: 20,
+    paddingHorizontal: wp("5%"),
   },
   textWrap: {
     alignItems: "center",
-    marginTop: 10,
-    gap:5
+    marginTop: hp("1.2%"),
+    gap:hp("0.6%")
   },
   title: {
     color: "#fff",
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     color: "#aaa",
     fontSize: wp("3.5%"),
     textAlign: "center",
-    marginTop: 6,
+    marginTop: hp("0.8%"),
     fontFamily: FONTS.regular,
     lineHeight: wp("5%"),
   },

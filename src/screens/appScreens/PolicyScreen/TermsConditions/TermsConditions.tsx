@@ -159,7 +159,7 @@ const TermsConditions: React.FC = () => {
         <View style={{padding:10}}>
          <Button 
             title="I Agree & Accept"
-            onPress={() => console.log("this is navigate")}
+            onPress={() => navigation.goBack()}
           />
           </View>
 
@@ -180,10 +180,10 @@ const styles = StyleSheet.create({
   },
 
   line: {
-    height: 1,
+     height: hp("0.15%"),
     width: "100%",
     backgroundColor: "rgba(255,255,255,0.16)",
-    marginVertical: 5,
+    marginVertical: hp("0.6%"), 
   },
 
   textBox: {
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp("4%"),
     height: hp("6%"),
     backgroundColor: "rgba(255,255,255,0.12)",
-    borderRadius: 8,
+     borderRadius: wp("2%"),  
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,

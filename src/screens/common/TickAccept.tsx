@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import { FONTS } from "../../utils/fonts";
+import { wp, hp } from "../../utils/responsive";
 
 type Props = {
   checked: boolean;
@@ -48,55 +49,55 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 8,
-    padding:10,
+    gap:  wp("2%"),
+    padding:wp("2.5%"),
   },
 
   checkbox: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
+    width: wp("5.8%"),
+    height: wp("5.8%"),
+    borderRadius: wp("1.5%"),
     alignItems: "center",
     justifyContent: "center",
   },
 
   checkboxEmpty: {
-    width: 22,
-    height: 22,
-    borderRadius: 6,
+    width: wp("5.8%"),
+    height: wp("5.8%"),
+    borderRadius: wp("1.5%"),
     borderWidth: 1.5,
     borderColor: "rgba(255,255,255,0.4)",
   },
 
   tick: {
-    width: 12,
-    height: 12,
+    width: wp("3.2%"),
+    height: wp("3.2%"),
     position: "relative",
   },
 
   tickLeft: {
     position: "absolute",
-    width: 4,
-    height: 2,
+    width: wp("1%"),
+    height:  wp("0.5%"),
     backgroundColor: "#fff",
-    bottom: 2,
+    bottom: wp("0.5%"),
     left: 0,
     transform: [{ rotate: "45deg" }],
   },
 
   tickRight: {
     position: "absolute",
-    width: 8,
-    height: 2,
+    width: wp("2.1%"),
+    height:  wp("0.5%"),
     backgroundColor: "#fff",
-    bottom: 4,
-    left: 1,
+    bottom: wp("1%"),
+    left: wp("0.3%"),
     transform: [{ rotate: "-55deg" }],
   },
 
   text: {
     color: "#fff",
-    fontSize: 12,
+    fontSize: wp("3%"),
     fontFamily: FONTS.regular,
   },
 });

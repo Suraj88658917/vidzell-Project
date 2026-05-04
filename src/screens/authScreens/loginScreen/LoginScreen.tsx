@@ -28,7 +28,6 @@ const LoginScreen: React.FC = () => {
   const handleSendOtp = () => {
     if (phone.length !== 10) return;
 
-    // navigation.navigate("VerifyOTP", { phone });
     navigation.navigate("VerifyOTP", { phone: `+91${phone}` , mode: "LOGIN", });
 
   };
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
 
   line: {
     flex: 1,
-    height: 1,
+    height: wp("0.4%"),
     backgroundColor: "#322D43",
   },
 
@@ -156,18 +155,18 @@ const styles = StyleSheet.create({
 
   text: {
     color: "#A0A0A0",
-    fontSize: 14,
+    fontSize: wp("3.4%"),
     fontFamily: FONTS.semiBold
   },
 
   link: {
     color: "#EC4A8A",
-    fontSize: 14,
+    fontSize: wp("4%"),
     fontFamily: FONTS.semiBold
   },
   scroll: {
     flexGrow: 1,
     justifyContent: "center",
-    padding: 20,
+    padding: wp("5%"),
   },
 });

@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: hp("6.6%"),
     backgroundColor: "rgba(237,230,230,0.25)",
-    borderRadius: 10,
+    borderRadius: wp("2.5%"),
   },
 
   googleText: {
