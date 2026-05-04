@@ -48,7 +48,7 @@ const SelectCategories: React.FC = () => {
   const isValid = selected.length > 0;
 
   const handleSubmit = () => {
-    navigation.navigate("MainTabs");
+    navigation.replace("MainTabs");
   };
 
   const renderItem = ({ item }: { item: Category }) => {

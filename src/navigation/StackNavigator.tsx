@@ -28,8 +28,7 @@ const StackNavigator = () => {
 
       <Stack.Screen name="TermsConditions" component={TermsConditions} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-      <Stack.Screen name="SelectCategories" component={SelectCategories} />
-
+      <Stack.Screen name="SelectCategories" component={SelectCategories}/>
 
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
 
