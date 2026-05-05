@@ -77,11 +77,12 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: "flex-end",
-    backgroundColor: "rgba(2, 0, 21, 0.37)",
+    backgroundColor: "rgba(2, 0, 21, 0.56)",
   },
 
   box: {
     width: "100%",
+    height:hp("15%"),
     backgroundColor: "#1f1c2e",
     borderTopLeftRadius: wp("6%"),
     borderTopRightRadius: wp("6%"),
