@@ -9,6 +9,7 @@ import VerifyOTP from "../screens/authScreens/verifyOTP/VerifyTOP";
 import TermsConditions from "../screens/appScreens/PolicyScreen/TermsConditions/TermsConditions"
 import PrivacyPolicy from "../screens/appScreens/PolicyScreen/PrivacyPolicy/PrivacyPolicy"
 import SelectCategories from "../screens/appScreens/SelectCategories/SelectCategories"
+import Notification from "../screens/appScreens/notification/Notification"
 
 import MainTabNavigator from "../navigation/MainTabNavigator";
 
@@ -29,6 +30,7 @@ const StackNavigator = () => {
       <Stack.Screen name="TermsConditions" component={TermsConditions} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
       <Stack.Screen name="SelectCategories" component={SelectCategories}/>
+       <Stack.Screen name="Notification" component={Notification}/>
 
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
 

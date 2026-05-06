@@ -22,6 +22,12 @@ import SellingVideos from "./components/SellingVideos";
 import TopCreators from "./components/TopCreators";
 import SpecialSale from "./components/SpecialSale";
 import EveryoneWatching from "./components/EveryoneWatching";
+import ViralOnInstagram from "./components/ViralOnInstagram";
+import GoingViral from "./components/GoingViral";
+import BrandsSpotlights from "./components/BrandsSpotlights";
+import DressessYouLove from "./components/DressesYouLove";
+import LatestLaunches from "./components/LatestLaunches";
+import CreatorSpotlight from "./components/CreatorSpotlight";
 
 const PERMISSION_STEPS = [
   {
@@ -121,11 +127,12 @@ const HomeScreen = () => {
         <TopCreators/>
         <SpecialSale/>
         <EveryoneWatching/>
-
-
-
-
-
+        <ViralOnInstagram/>
+        <GoingViral/>
+        <BrandsSpotlights/>
+        <DressessYouLove/>
+        <LatestLaunches/>
+        <CreatorSpotlight/>
       </ScrollView>
 
       {!permissionDone && (

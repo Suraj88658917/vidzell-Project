@@ -10,6 +10,7 @@ export type StackParamList = {
   TermsConditions: undefined;
   PrivacyPolicy: undefined;
 SelectCategories:undefined;
+Notification:undefined;
 };
 
 export type TabParamList = {
