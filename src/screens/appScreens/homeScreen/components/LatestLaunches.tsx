@@ -29,21 +29,21 @@ const listData: LaunchItem[] = [
     image2: require("../../../../assets/images/LL3.png"),
     image3: require("../../../../assets/images/one.png"),
   },
-   {
+  {
     id: "2",
     image: require("../../../../assets/images/image2.png"),
     image1: require("../../../../assets/images/LL2.png"),
     image2: require("../../../../assets/images/image5.png"),
     image3: require("../../../../assets/images/one.png"),
   },
-   {
-    id: "2",
+  {
+    id: "3",
     image: require("../../../../assets/images/LL1.png"),
     image1: require("../../../../assets/images/image1.png"),
     image2: require("../../../../assets/images/image5.png"),
     image3: require("../../../../assets/images/one.png"),
   },
- 
+
 ];
 
 const LaunchCard = ({ item }: { item: LaunchItem }) => {
@@ -76,15 +76,15 @@ const LaunchCard = ({ item }: { item: LaunchItem }) => {
 
       </View>
 
-       <Image source={item.image3} style={styles.oneImage} />
+      <Image source={item.image3} style={styles.oneImage} />
 
     </View>
   );
 };
 
 const LatestLaunches: React.FC = () => {
-  
-return (
+
+  return (
     <View style={styles.container}>
 
       <Text style={styles.heading}>Latest Launchers</Text>
@@ -98,16 +98,17 @@ return (
       />
 
     </View>
-)};
+  )
+};
 
 export default LatestLaunches;
 
 const styles = StyleSheet.create({
 
-   container: {
+  container: {
     marginTop: hp("2%"),
     paddingHorizontal: wp("4%"),
-    marginBottom:wp("4%")
+    marginBottom: wp("4%")
   },
 
   heading: {
@@ -151,22 +152,22 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginTop: hp("4%"),
-      gap:wp("2%")
+    gap: wp("2%")
   },
 
   btnText: {
     color: "#fff",
     fontSize: wp("4%"),
     fontFamily: FONTS.semiBold,
-  
+
   },
 
-  oneImage:{
+  oneImage: {
     width: "30%",
     height: hp("18%"),
-    position:"absolute",
-    top:wp("28%"),
-    left:wp("25%")
+    position: "absolute",
+    top: wp("28%"),
+    left: wp("25%")
   }
 });
 

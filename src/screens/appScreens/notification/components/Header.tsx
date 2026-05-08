@@ -9,13 +9,15 @@ import {
 
 import BackArrow from "../../../../assets/images/ArrowRight.svg";
 import { wp, hp } from "../../../../utils/responsive";
+import { FONTS } from "../../../../utils/fonts";
 
 type Props = {
   onBack: (event: GestureResponderEvent) => void;
   onClearAll: () => void;
+  hasData: boolean;
 };
 
-const Header: React.FC<Props> = ({ onBack, onClearAll }) => {
+const Header: React.FC<Props> = ({ onBack, onClearAll, hasData }) => {
   return (
     <View style={styles.container}>
 
@@ -29,9 +31,15 @@ const Header: React.FC<Props> = ({ onBack, onClearAll }) => {
 
       <Text style={styles.title}>Notifications</Text>
 
-      <TouchableOpacity onPress={onClearAll} style={styles.right}>
-        <Text style={styles.clearText}>Clear all</Text>
-      </TouchableOpacity>
+      <View style={styles.right}>
+        {hasData ? (
+          <TouchableOpacity onPress={onClearAll}>
+            <Text style={styles.clearText}>Clear all</Text>
+          </TouchableOpacity>
+        ) : (
+          <View />
+        )}
+      </View>
 
     </View>
   );
@@ -44,19 +52,27 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: wp("4%"),
-    paddingTop: hp("6%"),
+    paddingTop: hp("7.4%"),
     paddingBottom: hp("2%"),
+    paddingHorizontal: wp("2%")
   },
 
   left: {
-    width: wp("10%"),
+    width: wp("13%"),
+    backgroundColor: "#ffffff1a",
+    paddingHorizontal: wp("5%"),
+    paddingVertical: hp("2%"),
+    borderRadius: wp("10%"),
+    height: hp("6%"),
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "row"
   },
 
   title: {
     fontSize: wp("4.5%"),
     color: "#fff",
-    fontWeight: "600",
+    fontFamily: FONTS.semiBold
   },
 
   right: {
@@ -67,6 +83,6 @@ const styles = StyleSheet.create({
   clearText: {
     color: "#948DA7",
     fontSize: wp("3.5%"),
-    fontWeight: "500",
+    fontFamily: FONTS.regular
   },
 });

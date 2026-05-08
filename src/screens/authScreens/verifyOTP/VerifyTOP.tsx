@@ -73,17 +73,17 @@ const VerifyOTP: React.FC = () => {
     setError("");
     setAttempts(0);
     setShowModal(true);
-          
+
     setTimeout(() => {
       setShowModal(false);
-       if (mode === "REGISTER") {
-      navigation.replace("SelectCategories"); 
-    } else {
-      navigation.replace("SelectCategories");
-    }
+      if (mode === "REGISTER") {
+        navigation.replace("SelectCategories");
+      } else {
+        navigation.replace("SelectCategories");
+      }
     }, 1000);
-    
-  }, [otp, isLocked, navigation , mode]);
+
+  }, [otp, isLocked, navigation, mode]);
 
   const handleResend = useCallback(() => {
     setAttempts(0);
@@ -220,7 +220,7 @@ const styles = StyleSheet.create({
   errorBlock: {
     backgroundColor: "rgba(255,0,0,0.1)",
     padding: wp("2.5%"),
-    borderRadius:  wp("2%"),
+    borderRadius: wp("2%"),
     overflow: "hidden",
   },
 

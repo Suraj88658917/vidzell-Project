@@ -125,7 +125,7 @@ const TermsConditions: React.FC = () => {
         {/* STEP 2 — DIVIDER */}
         <View style={styles.line} />
 
-        <View style={{ padding: 10 }}>
+        <View style={{ padding: wp("3%") }}>
           <View style={styles.textBox}>
             <RenderHTML
               contentWidth={width}
@@ -156,12 +156,12 @@ const TermsConditions: React.FC = () => {
           onToggle={() => setChecked(!checked)}
           label="I Read & Accept the Terms & Conditions"
         />
-        <View style={{padding:10}}>
-         <Button 
+        <View style={{ padding: wp("6%"), marginBottom: wp("6%") }}>
+          <Button
             title="I Agree & Accept"
             onPress={() => navigation.goBack()}
           />
-          </View>
+        </View>
 
       </ScrollView>
     </LinearGradient>
@@ -180,10 +180,10 @@ const styles = StyleSheet.create({
   },
 
   line: {
-     height: hp("0.15%"),
+    height: hp("0.15%"),
     width: "100%",
     backgroundColor: "rgba(255,255,255,0.16)",
-    marginVertical: hp("0.6%"), 
+    marginVertical: hp("0.6%"),
   },
 
   textBox: {
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: wp("4%"),
     height: hp("6%"),
     backgroundColor: "rgba(255,255,255,0.12)",
-     borderRadius: wp("2%"),  
+    borderRadius: wp("2%"),
     justifyContent: "center",
     alignItems: "center",
     borderWidth: 1,

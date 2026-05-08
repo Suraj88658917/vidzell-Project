@@ -36,7 +36,6 @@ const SuccessModal: React.FC<Props> = ({
   onClose,
 }) => {
   const content = SUCCESS_TEXTS[type];
-
   return (
     <Modal transparent visible={visible} animationType="slide">
       <TouchableWithoutFeedback onPress={onClose}>
@@ -67,7 +66,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: "100%",
-    height: hp("35%"),
+    height: hp("43%"),
     backgroundColor: "#020015",
     borderTopLeftRadius: wp("6%"),
     borderTopRightRadius: wp("6%"),

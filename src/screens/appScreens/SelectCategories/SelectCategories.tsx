@@ -207,6 +207,6 @@ const styles = StyleSheet.create({
 
   btnWrap: {
     paddingHorizontal: wp("4%"),     
-    paddingBottom: hp("3%"),
+    paddingBottom: hp("5%"),
   },
 });
