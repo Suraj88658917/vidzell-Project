@@ -1,16 +1,23 @@
 import React, { useState } from "react";
-import { View, Text, StyleSheet, StatusBar, TouchableOpacity, KeyboardAvoidingView, Platform, ScrollView, } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  KeyboardAvoidingView,
+  Platform,
+  ScrollView,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import LinearGradient from "react-native-linear-gradient";
 
 import { StackParamList } from "../../../navigation/types";
 import Logo from "../../../assets/images/Logo.svg";
-
 import { wp, hp } from "../../../utils/responsive";
 import { COLORS } from "../../../utils/colors";
 import { FONTS } from "../../../utils/fonts";
-
 import GoogleLogin from "../../common/GoogleLogin";
 import PhoneInput from "../../common/PhoneInput";
 import OtpBtn from "../../common/OTPBtn";
@@ -21,14 +28,14 @@ type NavProp = NativeStackNavigationProp<StackParamList, "Login">;
 const SignupScreen: React.FC = () => {
   const navigation = useNavigation<NavProp>();
   const [phone, setPhone] = useState("");
-   const [agreed, setAgreed] = useState(false);
+  const [agreed, setAgreed] = useState(false);
 
   const isValid = phone.length === 10;
 
   const handleSendOtp = () => {
     if (phone.length !== 10) return;
 
-    navigation.navigate("VerifyOTP", { phone: `+91${phone}` ,  mode: "REGISTER", });
+    navigation.navigate("VerifyOTP", { phone: `+91${phone}`, mode: "REGISTER", });
 
   };
 
@@ -39,9 +46,14 @@ const SignupScreen: React.FC = () => {
       end={{ x: 0.8, y: 1 }}
       style={styles.container}
     >
-      <StatusBar barStyle="light-content" backgroundColor="#8d44c400" translucent={true} />
+      <StatusBar
+        barStyle="light-content"
+        backgroundColor="#8d44c400"
+        translucent={true}
+      />
 
       <KeyboardAvoidingView
+        style={{ flex: 1 }}
         behavior={Platform.OS === "ios" ? "padding" : "height"}
       >
         <ScrollView
@@ -52,25 +64,26 @@ const SignupScreen: React.FC = () => {
           {/* HEADER */}
           <View style={styles.header}>
             <Logo width={wp("47%")} height={hp("23%")} />
+          </View>
+
+          {/* TITLE */}
+          <View style={styles.textContainer}>
             <Text style={styles.title}>Login/Signup to start Shopping</Text>
             <Text style={styles.subtitle}>Enter your details to get started</Text>
           </View>
 
-          {/* INPUT SECTION */}
-          <View style={styles.form}>
-            <PhoneInput value={phone} onChange={setPhone} />
+          <PhoneInput value={phone} onChange={setPhone} />
 
-            <Agree
-              checked={agreed}
-              onToggle={() => setAgreed((prev) => !prev)}
-            />
+          <Agree
+            checked={agreed}
+            onToggle={() => setAgreed((prev) => !prev)}
+          />
 
-            <OtpBtn
-              title="Send OTP"
-              disabled={!isValid || phone.length < 10}
-              onPress={handleSendOtp}
-            />
-          </View>
+          <OtpBtn
+            title="Send OTP"
+            disabled={!isValid || phone.length < 10}
+            onPress={handleSendOtp}
+          />
 
           {/* DIVIDER */}
           <View style={styles.divider}>
@@ -80,9 +93,7 @@ const SignupScreen: React.FC = () => {
           </View>
 
           {/* SOCIAL LOGIN */}
-          <View style={{ justifyContent: "center" }}>
-            <GoogleLogin onPress={() => console.log("Google Login")} />
-          </View>
+          <GoogleLogin onPress={() => console.log("Google Login")} />
 
 
         </ScrollView>
@@ -97,10 +108,17 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
+  scroll: {
+    justifyContent: "center",
+    paddingHorizontal: wp("4%"),
+    paddingVertical: hp("4%"),
+  },
 
   header: {
     alignItems: "center",
-    marginTop: wp("5%")
+    height: hp("16%"),
+    justifyContent: "center",
+    marginTop: hp("3%"),
   },
 
   title: {
@@ -123,7 +141,7 @@ const styles = StyleSheet.create({
   divider: {
     flexDirection: "row",
     alignItems: "center",
-    marginTop: hp("4.5%"),
+    marginTop: hp("5%"),
   },
 
   line: {
@@ -139,9 +157,9 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.medium,
   },
 
-  scroll: {
-    flexGrow: 1,
-    justifyContent: "center",
-    padding: wp("5%"),
+  textContainer: {
+    alignItems: "center",
+    marginBottom: hp("1%"),
   },
+
 });

@@ -156,7 +156,7 @@ const TermsConditions: React.FC = () => {
           onToggle={() => setChecked(!checked)}
           label="I Read & Accept the Terms & Conditions"
         />
-        <View style={{ padding: wp("6%"), marginBottom: wp("6%") }}>
+        <View style={{ padding: wp("6%"), marginBottom: wp("10") }}>
           <Button
             title="I Agree & Accept"
             onPress={() => navigation.goBack()}

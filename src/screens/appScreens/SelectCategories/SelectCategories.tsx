@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
 
   itemWrap: {
     padding: wp("1%"),
-    paddingTop:wp("4%")
+    paddingTop:wp("5%")
   },
 
   cardSelected: {

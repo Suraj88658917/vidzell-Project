@@ -18,7 +18,6 @@ import OTPInput from "../verifyOTP/components/OTPInput";
 import Button from "../../common/Button";
 import OtpTimer from "../verifyOTP/components/OtpTimer";
 import SuccessModal from "../../common/SuccessModal";
-
 import { COLORS } from "../../../utils/colors";
 import { FONTS } from "../../../utils/fonts";
 import { wp, hp } from "../../../utils/responsive";
@@ -31,8 +30,8 @@ const MAX_ATTEMPTS = 3;
 const CORRECT_OTP = "123456";
 
 const OTP_ERRORS = {
-  INVALID: "Invalid OTP",
-  TOO_MANY: "Too many OTP requests for this number.\nPlease try again after 1 hour.",
+  INVALID: "Invalid OTP. Please try again.",
+  TOO_MANY: "Too many attempts.\nPlease try again after 1 hour.",
 } as const;
 
 const VerifyOTP: React.FC = () => {
@@ -49,10 +48,13 @@ const VerifyOTP: React.FC = () => {
 
   const isLocked = attempts >= MAX_ATTEMPTS;
 
-  const handleOtpChange = useCallback((val: string) => {
-    setOtp(val);
-    if (error) setError("");
-  }, [error]);
+  const handleOtpChange = useCallback(
+    (val: string) => {
+      setOtp(val);
+      if (error) setError("");
+    },
+    [error]
+  );
 
   const handleVerify = useCallback((): void => {
     if (isLocked) {
@@ -63,7 +65,9 @@ const VerifyOTP: React.FC = () => {
     if (otp !== CORRECT_OTP) {
       setAttempts((prev) => {
         const next = prev + 1;
-        setError(next >= MAX_ATTEMPTS ? OTP_ERRORS.TOO_MANY : OTP_ERRORS.INVALID);
+        setError(
+          next >= MAX_ATTEMPTS ? OTP_ERRORS.TOO_MANY : OTP_ERRORS.INVALID
+        );
         if (next >= MAX_ATTEMPTS) setOtp("");
         return next;
       });
@@ -81,8 +85,7 @@ const VerifyOTP: React.FC = () => {
       } else {
         navigation.replace("SelectCategories");
       }
-    }, 1000);
-
+    }, 1500);
   }, [otp, isLocked, navigation, mode]);
 
   const handleResend = useCallback(() => {
@@ -101,75 +104,73 @@ const VerifyOTP: React.FC = () => {
       <StatusBar barStyle="light-content" translucent />
 
       <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
+        behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.flex}
       >
         <ScrollView
-          contentContainerStyle={[styles.scroll, { flexGrow: 1 }]}
+          contentContainerStyle={styles.scroll}
           keyboardShouldPersistTaps="handled"
           showsVerticalScrollIndicator={false}
         >
-          {/* HEADER */}
+
           <View style={styles.header}>
             <Text style={styles.title}>
               Enter the OTP and verify{"\n"}to continue
             </Text>
             <Text style={styles.subtitle}>
-              A code has been sent to {phone}
+              A code has been sent to{" "}
+              <Text style={styles.phoneText}>{phone}</Text>
             </Text>
           </View>
 
-          {/* OTP INPUT */}
           <OTPInput
             value={otp}
             onChange={handleOtpChange}
             error={error}
           />
 
-          {/* ERROR */}
           {!!error && (
-            <Text style={[
-              styles.errorText,
-              isLocked && styles.errorBlock,
-              { opacity: error ? 1 : 0 }
-            ]}>
-              {error || "placeholder"}
+            <Text
+              style={[
+                styles.errorText,
+                isLocked && styles.errorBlock,
+              ]}
+            >
+              {error}
             </Text>
           )}
 
-          {/* RESEND */}
           <View style={styles.resendWrap}>
             <Text style={styles.smallText}>Didn't get the OTP?</Text>
             <OtpTimer duration={30} onResend={handleResend} />
           </View>
 
-          {/* BUTTON */}
           <Button
             title="Verify OTP"
             onPress={handleVerify}
             disabled={otp.length < 6 || isLocked}
           />
 
-          {/* BACK */}
-          <View>
-            <TouchableOpacity
-              style={styles.backBtn}
-              onPress={() => navigation.goBack()}
-              activeOpacity={0.7}
-            >
-              <Arrow width={wp("5%")} height={hp("3%")} />
-              <Text style={styles.backText}>Back to Login</Text>
-            </TouchableOpacity>
-          </View>
-
-          <SuccessModal
-            visible={showModal}
-            type={mode === "REGISTER" ? "REGISTER" : "OTP"}
-            onClose={() => setShowModal(false)}
-          />
+          <TouchableOpacity
+            style={styles.backBtn}
+            onPress={() => navigation.goBack()}
+            activeOpacity={0.7}
+          >
+            <Arrow
+              width={wp("5%")}
+              height={hp("3%")}
+            />
+            <Text style={styles.backText}>Back to Login</Text>
+          </TouchableOpacity>
 
         </ScrollView>
       </KeyboardAvoidingView>
+
+      <SuccessModal
+        visible={showModal}
+        type={mode === "REGISTER" ? "REGISTER" : "OTP"}
+        onClose={() => setShowModal(false)}
+      />
 
     </LinearGradient>
   );
@@ -178,43 +179,54 @@ const VerifyOTP: React.FC = () => {
 export default VerifyOTP;
 
 const styles = StyleSheet.create({
-  container: { flex: 1 },
+  container: {
+    flex: 1,
+  },
 
-  flex: { flex: 1 },
+  flex: {
+    flex: 1,
+  },
 
   scroll: {
-    flexGrow: 1,
     paddingHorizontal: wp("5%"),
     paddingBottom: hp("5%"),
+    justifyContent: "center",
   },
 
   header: {
-    marginTop: hp("25%"),
+    marginTop: hp("20%"),
     marginBottom: hp("5%"),
+    alignItems: "center",
   },
 
   title: {
     color: COLORS.white,
     fontSize: wp("6%"),
     textAlign: "center",
-    fontFamily: FONTS.semiBold,
-    lineHeight: wp("8%"),
+    fontFamily: FONTS.bold,
+    lineHeight: wp("8.5%"),
   },
 
   subtitle: {
     color: "#AEA7C3",
     textAlign: "center",
-    marginTop: hp("1%"),
+    marginTop: hp("1.5%"),
     fontFamily: FONTS.regular,
     fontSize: wp("3.5%"),
   },
 
+  phoneText: {
+    color: "#fff",
+    fontFamily: FONTS.semiBold,
+  },
+
   errorText: {
-    color: "red",
+    color: "#FF6B6B",
     textAlign: "center",
-    marginTop: hp("1%"),
+    marginTop: hp("1.5%"),
     fontFamily: FONTS.regular,
     fontSize: wp("3.5%"),
+    lineHeight: wp("5%"),
   },
 
   errorBlock: {
@@ -222,13 +234,13 @@ const styles = StyleSheet.create({
     padding: wp("2.5%"),
     borderRadius: wp("2%"),
     overflow: "hidden",
+    marginHorizontal: wp("2%"),
   },
 
   resendWrap: {
     alignItems: "center",
-    marginTop: hp("10%"),
+    marginTop: hp("8%"),
     marginBottom: hp("4%"),
-    gap: hp("0.5%"),
   },
 
   smallText: {
@@ -241,12 +253,12 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: hp("2%"),
+    marginTop: hp("1%"),
     paddingVertical: hp("1%"),
+    gap: wp("1.5%"),
   },
 
   backText: {
-    marginLeft: wp("1.5%"),
     color: "#948DA7",
     fontFamily: FONTS.regular,
     fontSize: wp("3.5%"),

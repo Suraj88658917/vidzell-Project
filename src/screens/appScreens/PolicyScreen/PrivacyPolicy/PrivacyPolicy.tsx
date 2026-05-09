@@ -155,7 +155,7 @@ const PrivacyPolicy: React.FC = () => {
           label="I Read & Accept the Privacy Policy"
         />
 
-         <View style={{ padding: wp("6%"), marginBottom: wp("6%") }}>
+         <View style={{ padding: wp("6%"), marginBottom: wp("10%") }}>
           <Button
             title="I Agree & Accept"
             onPress={() => navigation.goBack()}

@@ -89,17 +89,6 @@ const WalkthroughList: React.FC<Props> = ({ data, onDone }) => {
                 ))}
             </View>
 
-            {/*  BUTTON */}
-            {index === data.length - 1 && (
-
-                <View style={{ padding: wp("6"), marginTop: wp("8") }}>
-                    <OtpBtn
-                        title="Get Started"
-                        onPress={onDone}
-                    />
-                </View>
-
-            )}
         </View>
     );
 };
