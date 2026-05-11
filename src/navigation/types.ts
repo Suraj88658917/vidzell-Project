@@ -18,5 +18,6 @@ export type TabParamList = {
   Cart: undefined;
   Category: undefined;
   Wishlist: undefined;
+  Reel:undefined
 
 };

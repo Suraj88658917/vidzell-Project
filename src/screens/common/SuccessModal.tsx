@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   },
   box: {
     width: "100%",
-    height: hp("43%"),
+    height: hp("44%"),
     backgroundColor: "#020015",
     borderTopLeftRadius: wp("6%"),
     borderTopRightRadius: wp("6%"),
