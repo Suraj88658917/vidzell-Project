@@ -30,10 +30,10 @@ const SignupScreen: React.FC = () => {
   const [phone, setPhone] = useState("");
   const [agreed, setAgreed] = useState(false);
 
-  const isValid = phone.length === 10;
+  const isValid = phone.length === 10 && agreed;
 
   const handleSendOtp = () => {
-    if (phone.length !== 10) return;
+    if (!isValid) return;
 
     navigation.navigate("VerifyOTP", { phone: `+91${phone}`, mode: "REGISTER", });
 
@@ -49,7 +49,7 @@ const SignupScreen: React.FC = () => {
       <StatusBar
         barStyle="light-content"
         backgroundColor="#8d44c400"
-        translucent={true}
+        translucent
       />
 
       <KeyboardAvoidingView
@@ -81,7 +81,7 @@ const SignupScreen: React.FC = () => {
 
           <OtpBtn
             title="Send OTP"
-            disabled={!isValid || phone.length < 10}
+            disabled={!isValid}
             onPress={handleSendOtp}
           />
 
@@ -125,6 +125,7 @@ const styles = StyleSheet.create({
     color: COLORS.white,
     fontFamily: FONTS.semiBold,
     fontSize: wp("5.6%"),
+    textAlign: "center",
   },
 
   subtitle: {
@@ -132,10 +133,7 @@ const styles = StyleSheet.create({
     fontFamily: FONTS.semiBold,
     fontSize: wp("3.6%"),
     marginTop: hp("1%"),
-  },
-
-  form: {
-    marginTop: hp("2%"),
+    textAlign: "center",
   },
 
   divider: {

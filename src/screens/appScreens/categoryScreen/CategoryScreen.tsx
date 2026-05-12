@@ -90,11 +90,26 @@ type Props = {
 };
 
 const CategoryScreen: React.FC<Props> = ({ navigation }) => {
-  const [selectedId, setSelectedId] = useState<string>('1');
+  const [history, setHistory] = useState<string[]>(['1']);
+  const selectedId = history[history.length - 1];
 
   const selectedCategory = categories.find(c => c.id === selectedId);
   const subItems = subItemsMap[selectedId] ?? [];
   const isTrending = selectedId === '1';
+
+  const handleSelectCategory = (id: string) => {
+    if (id !== selectedId) {
+      setHistory(prev => [...prev, id]);
+    }
+  };
+
+  const handleBack = () => {
+    if (history.length > 1) {
+      setHistory(prev => prev.slice(0, -1));
+    } else {
+      navigation.goBack();
+    }
+  };
 
   return (
     <LinearGradient
@@ -104,7 +119,7 @@ const CategoryScreen: React.FC<Props> = ({ navigation }) => {
       <StatusBar barStyle="light-content" translucent backgroundColor="#0a0820" />
 
       <View style={styles.headerWrapper}>
-        <Header title="Categories" onBack={() => navigation.goBack()} />
+        <Header title="Categories" onBack={handleBack} />
       </View>
 
       <View style={styles.body}>
@@ -122,7 +137,7 @@ const CategoryScreen: React.FC<Props> = ({ navigation }) => {
             return (
               <TouchableOpacity
                 style={styles.categoryItem}
-                onPress={() => setSelectedId(item.id)}
+                onPress={() => handleSelectCategory(item.id)}
                 activeOpacity={0.7}
               >
                 {isActive && (
@@ -192,20 +207,21 @@ const CategoryScreen: React.FC<Props> = ({ navigation }) => {
           )}
 
           {/* Sub items grid */}
-          <Text style={styles.sectionTitle}>{selectedCategory?.name}</Text>
+          {!isTrending && <Text style={styles.sectionTitle}>{selectedCategory?.name}</Text>}
           <View style={styles.subItemsGrid}>
             {subItems.map(item => (
               <TouchableOpacity
                 key={item.id}
                 style={styles.subCard}
                 activeOpacity={0.7}
+                onPress={() => navigation.navigate("CategoryItem", { itemName: item.name })}
               >
                 <Image
                   source={item.image}
                   style={styles.subCardImage}
                   resizeMode="cover"
                 />
-                <Text style={styles.subCardName} numberOfLines={1}>
+                <Text style={styles.subCardName} numberOfLines={3}>
                   {item.name}
                 </Text>
               </TouchableOpacity>
@@ -337,17 +353,22 @@ const styles = StyleSheet.create({
   subItemsGrid: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    gap: hp("2.4%"),
   },
   subCard: {
-    width: wp('30%'),
-    height: hp("12%"),
+    width: wp('17%'),
+    height: hp("8%"),
     borderRadius: wp('20%'),
     justifyContent: "center",
+    backgroundColor: 'rgba(254, 253, 255, 0.5)',
+    marginTop: hp("2%")
   },
   subCardImage: {
-    width: '50%',
-    height: hp('7%'),
-    borderRadius: wp("30%")
+    width: '90%',
+    height: hp('8%'),
+    borderRadius: wp("30%"),
+    marginTop: hp("3.5%"),
+    marginLeft: wp("1%")
   },
   subCardName: {
     color: '#fff',

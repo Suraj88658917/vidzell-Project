@@ -2,6 +2,7 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import LinearGradient from "react-native-linear-gradient";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 import HomeScreen from "../screens/appScreens/homeScreen/HomeScreen";
 import CartScreen from "../screens/appScreens/cartScreen/CartScreen";
@@ -27,6 +28,42 @@ type TabIconProps = {
   focused: boolean;
 };
 
+const ICON_SIZE = wp("7%");
+
+const GradientIcon = ({
+  IconComponent,
+}: {
+  IconComponent: TabIconProps["IconComponent"];
+}) => (
+  <MaskedView
+    style={{ width: ICON_SIZE, height: ICON_SIZE }}
+    maskElement={
+      <IconComponent width={ICON_SIZE} height={ICON_SIZE} color="#000" />
+    }
+  >
+    <LinearGradient
+      colors={["#F107A3", "#7B2FF7"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+      style={{ width: ICON_SIZE, height: ICON_SIZE }}
+    />
+  </MaskedView>
+);
+
+const GradientLabel = ({ label }: { label: string }) => (
+  <MaskedView
+    maskElement={<Text style={styles.activeLabel}>{label}</Text>}
+  >
+    <LinearGradient
+      colors={["#F107A3", "#7B2FF7"]}
+      start={{ x: 0, y: 0 }}
+      end={{ x: 1, y: 1 }}
+    >
+      <Text style={styles.activeLabel}>{label}</Text>
+    </LinearGradient>
+  </MaskedView>
+);
+
 const TabIcon = ({ IconComponent, label, focused }: TabIconProps) => {
   if (label === "") {
     return (
@@ -34,24 +71,18 @@ const TabIcon = ({ IconComponent, label, focused }: TabIconProps) => {
     );
   }
 
-  if (focused) {
-    return (
-      <LinearGradient
-        colors={["rgba(241,7,163,0.6)", "rgba(124,47,247,0.47)"]}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 1, y: 1 }}
-        style={styles.activeTabContainer}
-      >
-        <IconComponent width={wp("5.8%")} height={wp("5.8%")} color="#F107A3" />
-        <Text style={styles.activeLabel}>{label}</Text>
-      </LinearGradient>
-    );
-  }
-
   return (
-    <View style={styles.inactiveTabContainer}>
-      <IconComponent width={wp("5.8%")} height={wp("5.8%")} color="#9B96B0" />
-      <Text style={styles.inactiveLabel}>{label}</Text>
+    <View style={styles.tabContainer}>
+      {focused ? (
+        <GradientIcon IconComponent={IconComponent} />
+      ) : (
+        <IconComponent width={ICON_SIZE} height={ICON_SIZE} color="#9B96B0" />
+      )}
+      {focused ? (
+        <GradientLabel label={label} />
+      ) : (
+        <Text style={styles.inactiveLabel}>{label}</Text>
+      )}
     </View>
   );
 };
@@ -120,17 +151,9 @@ const styles = StyleSheet.create({
     borderTopWidth: 0,
     height: hp("11%"),
     paddingBottom: hp("1%"),
-    paddingTop: hp("2.5%"),
+    paddingTop: hp("3%"),
   },
-  activeTabContainer: {
-    width: wp("18%"),
-    height: hp("6.5%"),
-    borderRadius: wp("20%"),
-    alignItems: "center",
-    justifyContent: "center",
-    gap: hp("0.4%"),
-  },
-  inactiveTabContainer: {
+  tabContainer: {
     width: wp("18%"),
     height: hp("6.5%"),
     alignItems: "center",
@@ -138,13 +161,13 @@ const styles = StyleSheet.create({
     gap: hp("0.4%"),
   },
   activeLabel: {
-    color: "#fff",
-    fontSize: wp("3%"),
+    color: "#fffdfdff",
+    fontSize: wp("2.8%"),
     fontFamily: FONTS.bold,
   },
   inactiveLabel: {
     color: "#7A7396",
-    fontSize: wp("3%"),
+    fontSize: wp("2.8%"),
     fontFamily: FONTS.bold,
   },
 });

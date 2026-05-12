@@ -100,11 +100,11 @@ const styles = StyleSheet.create({
 
   bannerCard: {
     width: wp("90%"),
-    marginRight: wp("3%"),
+    marginRight: wp("2%"),
   },
 
   image: {
-    width: "100%",
+    width: "95%",
     height: hp("30%"),
     borderRadius: wp("3%"),
   },
@@ -113,19 +113,19 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontSize: wp("6%"),
     fontFamily: FONTS.bold,
-    position:"absolute",
-    bottom:wp("20%"),
-    left:wp("18%")
+    position: "absolute",
+    bottom: wp("20%"),
+    left: wp("14%")
   },
 
   subtitle: {
     color: "#f7f5f5",
     fontSize: wp("4%"),
     marginBottom: hp("1%"),
-      position:"absolute",
-    bottom:wp("12%"),
-    left:wp("22%"),
-    fontFamily:FONTS.regular
+    position: "absolute",
+    bottom: wp("12%"),
+    left: wp("18%"),
+    fontFamily: FONTS.regular
   },
 
   btn: {
@@ -135,9 +135,9 @@ const styles = StyleSheet.create({
     borderRadius: wp("2%"),
     alignItems: "center",
     justifyContent: "center",
-      position:"absolute",
-    bottom:wp("3%"),
-    left:wp("34%"),
+    position: "absolute",
+    bottom: wp("3%"),
+    left: wp("32%"),
   },
 
   btnText: {
@@ -148,7 +148,7 @@ const styles = StyleSheet.create({
 
   categoryCard: {
     width: wp("28%"),
-    height:hp("15%"),
+    height: hp("15%"),
     alignItems: "center",
     marginBottom: hp("4%"),
   },
@@ -157,8 +157,8 @@ const styles = StyleSheet.create({
     width: wp("20%"),
     height: wp("20%"),
     borderRadius: wp("10%"),
-    backgroundColor:"#ffffff2d",
-    marginTop:wp("5%")
+    backgroundColor: "#ffffff2d",
+    marginTop: wp("5%")
   },
 
   categoryText: {

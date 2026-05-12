@@ -10,6 +10,8 @@ import TermsConditions from "../screens/appScreens/PolicyScreen/TermsConditions/
 import PrivacyPolicy from "../screens/appScreens/PolicyScreen/PrivacyPolicy/PrivacyPolicy"
 import SelectCategories from "../screens/appScreens/SelectCategories/SelectCategories"
 import Notification from "../screens/appScreens/notification/Notification"
+import CategoryItem from "../screens/appScreens/categoryScreen/components/CategoryItem"
+import SearchScreen from "../screens/appScreens/SearchScreen/SearchScreen";
 
 import MainTabNavigator from "../navigation/MainTabNavigator";
 
@@ -29,8 +31,11 @@ const StackNavigator = () => {
 
       <Stack.Screen name="TermsConditions" component={TermsConditions} />
       <Stack.Screen name="PrivacyPolicy" component={PrivacyPolicy} />
-      <Stack.Screen name="SelectCategories" component={SelectCategories}/>
-       <Stack.Screen name="Notification" component={Notification}/>
+      <Stack.Screen name="SelectCategories" component={SelectCategories} />
+      <Stack.Screen name="Notification" component={Notification} />
+
+      <Stack.Screen name="CategoryItem" component={CategoryItem} />
+      <Stack.Screen name="SearchScreen" component={SearchScreen} />
 
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
 
