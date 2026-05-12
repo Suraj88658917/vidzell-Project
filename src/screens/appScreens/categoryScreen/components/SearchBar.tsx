@@ -61,7 +61,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         gap: wp('2%'),
-        paddingHorizontal: wp('4%'),
     },
     searchBox: {
         flex: 1,
