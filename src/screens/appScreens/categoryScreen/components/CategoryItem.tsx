@@ -15,6 +15,7 @@ import SearchBar from './SearchBar';
 import ShortByFilter from './ShortByFilter';
 import { FONTS } from '../../../../utils/fonts';
 import Heart from '../../../../assets/images/Heart.svg';
+import Filters, { FilterPayload } from '../../../common/Filters';
 
 type CategoryItem = {
     id: string;
@@ -54,6 +55,7 @@ type CategoryCardProps = {
 const handleApply = (selected: string) => {
     console.log('Selected Sort:', selected);
 };
+
 
 
 const CategoryCard: React.FC<CategoryCardProps> = ({ item }) => {
@@ -99,6 +101,7 @@ const CategoryItem: React.FC<Props> = ({ navigation, route }) => {
     const { itemName } = route.params || { itemName: 'Category' };
     const [history, setHistory] = useState<string[]>([]);
     const [sortVisible, setSortVisible] = useState(false);
+    const [filterVisible, setFilterVisible] = useState(false);
 
 
     const handleBack = () => {
@@ -108,6 +111,12 @@ const CategoryItem: React.FC<Props> = ({ navigation, route }) => {
             navigation.goBack();
         }
     };
+
+    const handleApplyFilter = (data: FilterPayload) => {
+        console.log('FILTER DATA:', data);
+        setFilterVisible(false);
+    };
+
 
     return (
         <>
@@ -135,6 +144,7 @@ const CategoryItem: React.FC<Props> = ({ navigation, route }) => {
                         <SearchBar
                             navigation={navigation}
                             onSortPress={() => setSortVisible(true)}
+                            onFilterPress={() => setFilterVisible(true)}
                         />
                     }
                 />
@@ -146,6 +156,13 @@ const CategoryItem: React.FC<Props> = ({ navigation, route }) => {
                 onClose={() => setSortVisible(false)}
                 onApply={handleApply}
             />
+
+            <Filters
+                visible={filterVisible}
+                onClose={() => setFilterVisible(false)}
+                onApplySuccess={handleApplyFilter}
+            />
+
         </>
 
     );
@@ -181,6 +198,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255,255,255,0.06)',
         borderWidth: 0.5,
         borderColor: 'rgba(255,255,255,0.1)',
+        marginTop: hp("1.5%")
     },
     image: {
         width: '100%',

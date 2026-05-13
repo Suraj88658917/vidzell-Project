@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
         paddingTop: hp('2.5%'),
         paddingBottom: hp('4%'),
         gap: hp('1.5%'),
+
     },
 
     header: {
