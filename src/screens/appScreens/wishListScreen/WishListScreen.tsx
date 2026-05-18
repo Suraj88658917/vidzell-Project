@@ -7,6 +7,7 @@ import {
   FlatList,
   Image,
   TouchableOpacity,
+  ScrollView
 } from 'react-native';
 
 import LinearGradient from 'react-native-linear-gradient';
@@ -161,111 +162,115 @@ const WishListScreen = ({ navigation }: any) => {
     if (selected === 'videos') {
       return (
         <View style={styles.card}>
-          <Image
-            source={item.image}
-            style={styles.image}
-            resizeMode="cover"
-          />
-
-          <View style={styles.tag}>
-            <Text style={styles.tagText}>{item.text}</Text>
-          </View>
-
-          <TouchableOpacity
-            style={styles.heartBtn}
-            activeOpacity={0.8}
-            onPress={() => toggleLike(item.id)}
-          >
-            <Heart
-              width={wp('4%')}
-              height={wp('4%')}
-              fill={liked ? '#FF4D6D' : 'none'}
-              stroke={liked ? '#FF4D6D' : '#ffffff80'}
+          <TouchableOpacity>
+            <Image
+              source={item.image}
+              style={styles.image}
+              resizeMode="cover"
             />
-          </TouchableOpacity>
 
-          <View style={styles.likeWrap}>
-            {item.Playimage && (
-              <Image
-                source={item.Playimage}
-                style={styles.playIcon}
-                resizeMode="contain"
+            <View style={styles.tag}>
+              <Text style={styles.tagText}>{item.text}</Text>
+            </View>
+
+            <TouchableOpacity
+              style={styles.heartBtn}
+              activeOpacity={0.8}
+              onPress={() => toggleLike(item.id)}
+            >
+              <Heart
+                width={wp('4%')}
+                height={wp('4%')}
+                fill={liked ? '#FF4D6D' : 'none'}
+                stroke={liked ? '#FF4D6D' : '#ffffff80'}
               />
-            )}
-            <Text style={styles.likeText}>{item.like}</Text>
-          </View>
+            </TouchableOpacity>
 
-          <View style={styles.content}>
-            <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
-            <Text style={styles.subtitle} numberOfLines={1}>{item.subtitle}</Text>
-          </View>
+            <View style={styles.likeWrap}>
+              {item.Playimage && (
+                <Image
+                  source={item.Playimage}
+                  style={styles.playIcon}
+                  resizeMode="contain"
+                />
+              )}
+              <Text style={styles.likeText}>{item.like}</Text>
+            </View>
+
+            <View style={styles.content}>
+              <Text style={styles.cardTitle} numberOfLines={1}>{item.title}</Text>
+              <Text style={styles.subtitle} numberOfLines={1}>{item.subtitle}</Text>
+            </View>
+          </TouchableOpacity>
         </View>
       );
     }
 
     return (
       <View style={styles.card}>
-        <Image
-          source={item.image}
-          style={styles.image}
-          resizeMode="cover"
-        />
-
-        {/* Heart */}
-        <TouchableOpacity
-          style={styles.heartBtn}
-          activeOpacity={0.8}
-          onPress={() => toggleLike(item.id)}
-        >
-          <Heart
-            width={wp('4.5%')}
-            height={wp('4.5%')}
-            fill={liked ? '#FF4D6D' : 'none'}
-            stroke={
-              liked ? '#FF4D6D' : '#ffffff80'
-            }
+        <TouchableOpacity>
+          <Image
+            source={item.image}
+            style={styles.image}
+            resizeMode="cover"
           />
-        </TouchableOpacity>
 
-        {/* Content */}
-        <View style={styles.content}>
-          <Text
-            style={styles.cardTitle}
-            numberOfLines={1}
+          {/* Heart */}
+          <TouchableOpacity
+            style={styles.heartBtn}
+            activeOpacity={0.8}
+            onPress={() => toggleLike(item.id)}
           >
-            {item.title}
-          </Text>
+            <Heart
+              width={wp('4.5%')}
+              height={wp('4.5%')}
+              fill={liked ? '#FF4D6D' : 'none'}
+              stroke={
+                liked ? '#FF4D6D' : '#ffffff80'
+              }
+            />
+          </TouchableOpacity>
 
-          <View style={styles.row}>
-            <Text style={styles.price}>
-              {item.Price}
+          {/* Content */}
+          <View style={styles.content}>
+            <Text
+              style={styles.cardTitle}
+              numberOfLines={1}
+            >
+              {item.title}
             </Text>
 
-            <View style={styles.ratingRow}>
-
-              <Text style={styles.rate}>
-                {item.rate}
+            <View style={styles.row}>
+              <Text style={styles.price}>
+                {item.Price}
               </Text>
 
-              {item.Star && (
-                <Image
-                  source={item.Star}
-                  style={styles.star}
-                />
-              )}
+              <View style={styles.ratingRow}>
 
+                <Text style={styles.rate}>
+                  {item.rate}
+                </Text>
+
+                {item.Star && (
+                  <Image
+                    source={item.Star}
+                    style={styles.star}
+                  />
+                )}
+
+              </View>
             </View>
-          </View>
 
-          <TouchableOpacity
-            style={styles.addBtn}
-            activeOpacity={0.8}
-          >
-            <Text style={styles.addBtnText}>
-              Add to Cart
-            </Text>
-          </TouchableOpacity>
-        </View>
+            <TouchableOpacity
+              style={styles.addBtn}
+              activeOpacity={0.8}
+            >
+              <Text style={styles.addBtnText}>
+                Add to Cart
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
       </View>
     );
   };
@@ -288,43 +293,45 @@ const WishListScreen = ({ navigation }: any) => {
         />
       </View>
 
-      <Searchbar
-        onFilterPress={() =>
-          setFilterVisible(true)
-        }
-      />
+      <ScrollView>
+        <Searchbar
+          onFilterPress={() =>
+            setFilterVisible(true)
+          }
+        />
 
-      <Filters
-        visible={filterVisible}
-        onClose={() =>
-          setFilterVisible(false)
-        }
-      />
+        <Filters
+          visible={filterVisible}
+          onClose={() =>
+            setFilterVisible(false)
+          }
+        />
 
-      <PVCondition
-        selected={selected}
-        onSelect={setSelected}
-      />
+        <PVCondition
+          selected={selected}
+          onSelect={setSelected}
+        />
 
-      <FlatList
-        data={
-          selected === 'products'
-            ? productData
-            : videoData
-        }
-        keyExtractor={item => item.id}
-        renderItem={renderCard}
-        numColumns={2}
-        columnWrapperStyle={{
-          justifyContent: 'space-between',
-        }}
-        contentContainerStyle={{
-          paddingTop: hp('2%'),
-          paddingBottom: hp('5%'),
-          paddingHorizontal: wp('3%'),
-        }}
-        showsVerticalScrollIndicator={false}
-      />
+        <FlatList
+          data={
+            selected === 'products'
+              ? productData
+              : videoData
+          }
+          keyExtractor={item => item.id}
+          renderItem={renderCard}
+          numColumns={2}
+          columnWrapperStyle={{
+            justifyContent: 'space-between',
+          }}
+          contentContainerStyle={{
+            paddingTop: hp('2%'),
+            paddingBottom: hp('5%'),
+            paddingHorizontal: wp('3%'),
+          }}
+          showsVerticalScrollIndicator={false}
+        />
+      </ScrollView>
     </LinearGradient>
   );
 };
