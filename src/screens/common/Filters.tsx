@@ -169,73 +169,7 @@ const Filters = ({ visible, onClose, onApplySuccess }: FilterModalProps) => {
     };
 
 
-    const contentView = useMemo(() => {
-        switch (activeTab) {
-            case 'color':
-                return (
-                    <ChecklistPanel
-                        items={DATA.color}
-                        selected={selectedColors}
-                        onToggle={makeToggle(setSelectedColors)}
-                    />
-                );
 
-            case 'priceRange':
-                return (
-                    <PriceRange
-                        min={100}
-                        max={30000}
-                        step={100}
-                        minValue={selectedMinPrice}
-                        maxValue={selectedMaxPrice}
-                        onMinChange={setSelectedMinPrice}
-                        onMaxChange={setSelectedMaxPrice}
-                    />
-                );
-
-            case 'size':
-                return (
-                    <ChecklistPanel
-                        items={DATA.size}
-                        selected={selectedSizes}
-                        onToggle={makeToggle(setSelectedSizes)}
-                    />
-                );
-            case 'discounts':
-                return (
-                    <ChecklistPanel
-                        items={DATA.discounts}
-                        selected={selectedDiscounts}
-                        onToggle={makeToggle(setSelectedDiscounts)}
-                    />
-                );
-            case 'brand':
-                return (
-                    <ChecklistPanel
-                        items={DATA.brand}
-                        selected={selectedBrands}
-                        onToggle={makeToggle(setSelectedBrands)}
-                    />
-                );
-            case 'videoType':
-                return (
-                    <ChecklistPanel
-                        items={DATA.videoType}
-                        selected={selectedVideoTypes}
-                        onToggle={makeToggle(setSelectedVideoTypes)}
-                    />
-                );
-            default:
-                return null;
-        }
-    }, [
-        activeTab,
-        selectedColors,
-        selectedSizes,
-        selectedDiscounts,
-        selectedBrands,
-        selectedVideoTypes,
-    ]);
 
 
     return (
@@ -290,7 +224,52 @@ const Filters = ({ visible, onClose, onApplySuccess }: FilterModalProps) => {
 
                         {/* CONTENT */}
                         <View style={s.content}>
-                            {contentView}
+                            {activeTab === 'color' && (
+                                <ChecklistPanel
+                                    items={DATA.color}
+                                    selected={selectedColors}
+                                    onToggle={makeToggle(setSelectedColors)}
+                                />
+                            )}
+                            {activeTab === 'priceRange' && (
+                                <PriceRange
+                                    min={100}
+                                    max={30000}
+                                    step={100}
+                                    minValue={selectedMinPrice}
+                                    maxValue={selectedMaxPrice}
+                                    onMinChange={setSelectedMinPrice}
+                                    onMaxChange={setSelectedMaxPrice}
+                                />
+                            )}
+                            {activeTab === 'size' && (
+                                <ChecklistPanel
+                                    items={DATA.size}
+                                    selected={selectedSizes}
+                                    onToggle={makeToggle(setSelectedSizes)}
+                                />
+                            )}
+                            {activeTab === 'discounts' && (
+                                <ChecklistPanel
+                                    items={DATA.discounts}
+                                    selected={selectedDiscounts}
+                                    onToggle={makeToggle(setSelectedDiscounts)}
+                                />
+                            )}
+                            {activeTab === 'brand' && (
+                                <ChecklistPanel
+                                    items={DATA.brand}
+                                    selected={selectedBrands}
+                                    onToggle={makeToggle(setSelectedBrands)}
+                                />
+                            )}
+                            {activeTab === 'videoType' && (
+                                <ChecklistPanel
+                                    items={DATA.videoType}
+                                    selected={selectedVideoTypes}
+                                    onToggle={makeToggle(setSelectedVideoTypes)}
+                                />
+                            )}
                         </View>
                     </View>
 

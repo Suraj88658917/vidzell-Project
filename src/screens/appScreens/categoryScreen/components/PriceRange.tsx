@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
     Animated,
     StyleSheet,
@@ -68,28 +68,23 @@ const PriceRange: React.FC<PriceRangeProps> = ({
     const showBubble = (anim: Animated.Value) =>
         Animated.timing(anim, { toValue: 1, duration: 150, useNativeDriver: true }).start();
 
-    const hideBubble = (anim: Animated.Value) =>
-        Animated.timing(anim, { toValue: 0, duration: 200, useNativeDriver: true }).start();
-
     const handleValueChange = useCallback(
         (low: number, high: number) => {
+            setLocalMin(low);
+            setLocalMax(high);
             onMinChange(low);
             onMaxChange(high);
 
             showBubble(minAnim);
             showBubble(maxAnim);
-
-            if (timerRef.current) {
-                clearTimeout(timerRef.current);
-            }
-
-            timerRef.current = setTimeout(() => {
-                hideBubble(minAnim);
-                hideBubble(maxAnim);
-            }, 700);
         },
-        [onMinChange, onMaxChange],
+        [onMinChange, onMaxChange, minAnim, maxAnim],
     );
+
+    useEffect(() => {
+        setLocalMin(minValue);
+        setLocalMax(maxValue);
+    }, [minValue, maxValue]);
 
 
 
@@ -168,6 +163,7 @@ const PriceRange: React.FC<PriceRangeProps> = ({
                 renderLowValue={() => null}
                 renderHighValue={() => null}
             />
+
             <View style={s.rangeRow}>
                 <Text style={s.rangeLabel}>₹{min.toLocaleString()}</Text>
                 <Text style={s.rangeLabel}>₹{max.toLocaleString()}</Text>
