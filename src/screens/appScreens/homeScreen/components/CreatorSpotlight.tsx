@@ -32,7 +32,7 @@ const LaunchCard = ({ item }: { item: LaunchItem }) => {
     <LinearGradient
       colors={["#3a085c", "#020114", "#EC4A8A4D"]}
       start={{ x: 0, y: 0 }}
-      end={{ x: 1, y: 0 }}          
+      end={{ x: 1, y: 0 }}
       style={styles.card}
     >
       <View style={styles.left}>
@@ -97,11 +97,11 @@ const styles = StyleSheet.create({
   },
 
   card: {
-    width: wp("88%"),
+    width: wp("90%"),
     height: hp("20%"),
     flexDirection: "row",
     borderRadius: wp("4%"),
-    overflow: "hidden",           
+    overflow: "hidden",
     justifyContent: "space-between",
   },
 
@@ -125,16 +125,16 @@ const styles = StyleSheet.create({
   },
 
   imageWrap: {
-    width: wp("38%"),             
-    height: "100%",              
+    width: wp("38%"),
+    height: "100%",
   },
 
   image: {
     width: "100%",
-    height: "100%",              
+    height: "100%",
   },
-  btn:{
-    width:wp("35%"),
-    height:hp("5%")
+  btn: {
+    width: wp("35%"),
+    height: hp("5%")
   }
 });

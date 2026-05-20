@@ -293,7 +293,10 @@ const WishListScreen = ({ navigation }: any) => {
         />
       </View>
 
-      <ScrollView>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={{ paddingTop: hp('1%') }}
+      >
         <Searchbar
           onFilterPress={() =>
             setFilterVisible(true)
@@ -346,6 +349,7 @@ const styles = StyleSheet.create({
 
   headerWrapper: {
     paddingTop: hp('5%'),
+
   },
 
   card: {

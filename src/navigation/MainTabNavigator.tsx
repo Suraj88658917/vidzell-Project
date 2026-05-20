@@ -28,7 +28,7 @@ type TabIconProps = {
   focused: boolean;
 };
 
-const ICON_SIZE = wp("7%");
+const ICON_SIZE = wp("5%");
 
 const GradientIcon = ({
   IconComponent,
@@ -149,7 +149,7 @@ const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: "#050505",
     borderTopWidth: 0,
-    height: hp("11%"),
+    height: hp("9%"),
     paddingBottom: hp("1%"),
     paddingTop: hp("3%"),
   },

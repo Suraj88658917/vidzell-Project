@@ -96,12 +96,14 @@ const styles = StyleSheet.create({
     wrapper: {
         flexDirection: 'row',
         alignItems: 'center',
+        width: wp("94%"),
+        alignSelf: "center",
         gap: wp('2%'),
-        padding: wp('2%'),
+
     },
 
     searchBox: {
-        flex: 1,
+        width: wp("79%"),
         flexDirection: 'row',
         alignItems: 'center',
         gap: wp('2.5%'),
@@ -113,11 +115,10 @@ const styles = StyleSheet.create({
         borderColor: 'transparent',
     },
     input: {
-        flex: 1,
+        width: wp("100%"),
         color: '#fff',
         fontSize: wp('3.5%'),
         fontFamily: FONTS.regular,
-        padding: 0,
         height: '100%',
     },
 

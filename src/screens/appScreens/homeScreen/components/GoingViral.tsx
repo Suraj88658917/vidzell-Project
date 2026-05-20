@@ -99,12 +99,12 @@ const styles = StyleSheet.create({
   },
 
   bannerCard: {
-    width: wp("90%"),
+    width: wp("89%"),
     marginRight: wp("3%"),
   },
 
   image: {
-    width: "95%",
+    width: "100%",
     height: hp("30%"),
     borderRadius: wp("3%"),
   },

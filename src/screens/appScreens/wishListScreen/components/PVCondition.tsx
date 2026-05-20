@@ -82,7 +82,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: '#ffffff0f',
         borderRadius: wp('8%'),
-        padding: wp('1%'),
         alignSelf: 'center',
         width: wp('95%'),
         height: hp('7%'),

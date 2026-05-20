@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   textWrap: {
     alignItems: "center",
     marginTop: hp("1.2%"),
-    gap:hp("0.6%")
+    gap: hp("0.6%")
   },
   title: {
     color: "#fff",

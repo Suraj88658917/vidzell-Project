@@ -110,9 +110,9 @@ const SelectCategories: React.FC = () => {
       {/* BUTTON */}
       <View style={styles.btnWrap}>
         <OtpBtn
-          title="Submit"                
-          disabled={!isValid}           
-          onPress={handleSubmit}        
+          title="Submit"
+          disabled={!isValid}
+          onPress={handleSubmit}
         />
       </View>
 
@@ -162,7 +162,7 @@ const styles = StyleSheet.create({
 
   listContent: {
     paddingHorizontal: wp("4%"),
-    paddingBottom: hp("2%"),        
+    paddingBottom: hp("2%"),
   },
 
   row: {
@@ -171,14 +171,14 @@ const styles = StyleSheet.create({
 
   itemWrap: {
     padding: wp("1%"),
-    paddingTop:wp("5%")
+    paddingTop: wp("5%")
   },
 
   cardSelected: {
     borderColor: "#fff",
     borderWidth: 1,
     backgroundColor: "rgba(123,47,190,0.15)",
-    borderRadius:wp("2%")
+    borderRadius: wp("2%")
   },
 
   image: {
@@ -206,7 +206,7 @@ const styles = StyleSheet.create({
   },
 
   btnWrap: {
-    paddingHorizontal: wp("4%"),     
-    paddingBottom: hp("5%"),
+    paddingBottom: hp("2%"),
+    padding: wp("5%")
   },
 });
