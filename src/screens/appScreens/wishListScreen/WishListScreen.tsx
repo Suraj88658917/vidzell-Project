@@ -208,7 +208,8 @@ const WishListScreen = ({ navigation }: any) => {
 
     return (
       <View style={styles.card}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => navigation?.navigate('DetailsScreen')}>
           <Image
             source={item.image}
             style={styles.image}

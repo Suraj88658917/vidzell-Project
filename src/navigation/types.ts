@@ -13,6 +13,7 @@ export type StackParamList = {
   Notification: undefined;
   CategoryItem: undefined;
   SearchScreen: undefined;
+  DetailsScreen: undefined;
 };
 
 export type TabParamList = {
