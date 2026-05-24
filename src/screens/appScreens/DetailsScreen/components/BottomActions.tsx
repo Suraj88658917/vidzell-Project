@@ -6,37 +6,42 @@ import {
     TouchableOpacity,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { wp, hp } from '../../../../utils/responsive';
 import { FONTS } from '../../../../utils/fonts';
 
+type RootStackParamList = {
+    Home: undefined;
+    DetailsScreen: undefined;
+    SimilarProducts: undefined;
+    Checkout: undefined;
+};
+
 const BottomActions: React.FC = () => {
-    const [cartCount, setCartCount] = useState<number>(0);
-
-    const increment = () => setCartCount(prev => prev + 1);
-    const decrement = () => setCartCount(prev => (prev > 0 ? prev - 1 : 0));
-
-    const isInCart = cartCount > 0;
+    const navigation = useNavigation<NavigationProp<RootStackParamList>>();
+    const [count, setCount] = useState<number>(1);
+    const [addedToCart, setAddedToCart] = useState<boolean>(false);
 
     return (
         <View style={styles.container}>
+            <View style={styles.btnRow}>
 
-            {!isInCart && (
-                <View style={styles.row}>
+                <TouchableOpacity
+                    style={styles.buyNowBtn}
+                    activeOpacity={0.8}
+                    onPress={() => navigation.navigate('Checkout')}
+                >
+                    <Text style={styles.buyNowText}>Buy Now</Text>
+                </TouchableOpacity>
+
+                {!addedToCart ? (
 
                     <TouchableOpacity
-                        style={styles.buyNowBtn}
                         activeOpacity={0.8}
-                    >
-                        <Text style={styles.buyNowText}>Buy Now</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.addToCartWrapper}
-                        activeOpacity={0.8}
-                        onPress={increment}
+                        onPress={() => setAddedToCart(true)}
                     >
                         <LinearGradient
-                            colors={['#e8175d', '#9b27af']}
+                            colors={['#e8175d', '#8b5cf6']}
                             start={{ x: 0, y: 0 }}
                             end={{ x: 1, y: 0 }}
                             style={styles.addToCartBtn}
@@ -45,51 +50,30 @@ const BottomActions: React.FC = () => {
                         </LinearGradient>
                     </TouchableOpacity>
 
-                </View>
-            )}
+                ) : (
 
-            {isInCart && (
-                <View style={styles.cartColumn}>
-
-                    <TouchableOpacity
-                        activeOpacity={0.8}
-                        onPress={increment}
-                    >
-                        <LinearGradient
-                            colors={['#e8175d', '#9b27af']}
-                            start={{ x: 0, y: 0 }}
-                            end={{ x: 1, y: 0 }}
-                            style={styles.fullAddToCart}
-                        >
-                            <Text style={styles.addToCartText}>Add to Cart</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
-
-                    <View style={styles.counterRow}>
+                    <View style={styles.counterBox}>
 
                         <TouchableOpacity
-                            style={styles.counterBtn}
                             activeOpacity={0.8}
-                            onPress={decrement}
+                            onPress={() => setCount(prev => prev > 1 ? prev - 1 : 1)}
                         >
-                            <Text style={styles.counterIcon}>−</Text>
+                            <Text style={styles.counterBtnText}>−</Text>
                         </TouchableOpacity>
 
-                        <Text style={styles.countText}>{cartCount}</Text>
+                        <Text style={styles.countText}>{count}</Text>
 
                         <TouchableOpacity
-                            style={styles.counterBtn}
                             activeOpacity={0.8}
-                            onPress={increment}
+                            onPress={() => setCount(prev => prev + 1)}
                         >
-                            <Text style={styles.counterIcon}>+</Text>
+                            <Text style={styles.counterBtnText}>+</Text>
                         </TouchableOpacity>
 
                     </View>
+                )}
 
-                </View>
-            )}
-
+            </View>
         </View>
     );
 };
@@ -98,24 +82,28 @@ export default BottomActions;
 
 const styles = StyleSheet.create({
     container: {
+        justifyContent: 'center',
+        alignItems: 'center',
         paddingHorizontal: wp('4%'),
-        paddingVertical: hp('2%'),
-        paddingBottom: hp('4%'),
+        marginBottom: hp('4%'),
     },
 
-    row: {
+    btnRow: {
         flexDirection: 'row',
         gap: wp('3%'),
+        alignItems: 'center',
     },
 
+    // ── Buy Now ──
     buyNowBtn: {
-        flex: 1,
-        borderWidth: 1.5,
-        borderColor: '#e8175d',
+        width: wp('45%'),
+        height: hp('5.5%'),
         borderRadius: wp('8%'),
-        paddingVertical: hp('1.8%'),
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.3)',
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: 'transparent',
     },
 
     buyNowText: {
@@ -125,17 +113,13 @@ const styles = StyleSheet.create({
         fontFamily: FONTS.medium,
     },
 
-    addToCartWrapper: {
-        flex: 1,
-        borderRadius: wp('8%'),
-        overflow: 'hidden',
-    },
-
+    // ── Add to Cart ──
     addToCartBtn: {
-        paddingVertical: hp('1.8%'),
+        width: wp('44%'),
+        height: hp('5.5%'),
+        borderRadius: wp('8%'),
         alignItems: 'center',
         justifyContent: 'center',
-        borderRadius: wp('8%'),
     },
 
     addToCartText: {
@@ -145,38 +129,24 @@ const styles = StyleSheet.create({
         fontFamily: FONTS.medium,
     },
 
-    cartColumn: {
-        gap: hp('1.5%'),
-    },
-
-    fullAddToCart: {
-        width: '100%',
-        paddingVertical: hp('1.8%'),
-        alignItems: 'center',
-        justifyContent: 'center',
+    counterBox: {
+        width: wp('44%'),
+        height: hp('5.5%'),
         borderRadius: wp('8%'),
-    },
-
-    counterRow: {
+        borderWidth: 1.5,
+        borderColor: '#e8175d',
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderWidth: 1.5,
-        borderColor: '#e8175d',
-        borderRadius: wp('8%'),
-        paddingHorizontal: wp('5%'),
-        paddingVertical: hp('1.2%'),
+        paddingHorizontal: wp('4%'),
     },
 
-    counterBtn: {
-        padding: wp('2%'),
-    },
-
-    counterIcon: {
+    counterBtnText: {
         color: '#e8175d',
-        fontSize: wp('6%'),
+        fontSize: wp('5.5%'),
         fontWeight: '700',
-        lineHeight: wp('6%'),
+        fontFamily: FONTS.medium,
+        lineHeight: wp('7%'),
     },
 
     countText: {
@@ -184,7 +154,7 @@ const styles = StyleSheet.create({
         fontSize: wp('4.5%'),
         fontWeight: '700',
         fontFamily: FONTS.medium,
-        minWidth: wp('10%'),
+        minWidth: wp('6%'),
         textAlign: 'center',
     },
 });
