@@ -18,11 +18,11 @@ type Props = {
 const Header: React.FC<Props> = ({ title, onBack, rightComponent }) => {
   return (
     <View style={styles.container}>
-      
+
       <View >
         <TouchableOpacity onPress={onBack} style={styles.left}>
-        <BackArrow width={wp("12%")} height={hp("12%")} />
-      </TouchableOpacity>
+          <BackArrow width={wp("12%")} height={hp("12%")} />
+        </TouchableOpacity>
       </View>
 
       <Text style={styles.title}>{title}</Text>
@@ -61,7 +61,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlign: "center",
     fontSize: wp("4.5%"),
-    fontFamily: FONTS.semiBold,
+    fontFamily: FONTS.bold,
     color: "#fff",
   },
 });

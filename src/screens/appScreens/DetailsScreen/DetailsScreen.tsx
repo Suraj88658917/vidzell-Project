@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, StatusBar, View, ScrollView } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
+import Share from 'react-native-share';
 import Header from './components/Header';
 import ImageSlider from './components/ImageSlider';
 import DotsIndicator from './components/DotsIndicator';
@@ -46,6 +47,18 @@ const Dress_Data = [
 const DetailsScreen = () => {
     const [activeIndex, setActiveIndex] = useState(0);
 
+    const onShare = async (): Promise<void> => {
+        try {
+            await Share.open({
+                title: "Share App",
+                message: "Hello from React Native ",
+                url: "https://google.com",
+            });
+        } catch (error: any) {
+            console.log(error);
+        }
+    };
+
     return (
         <LinearGradient
             colors={['#0a0820', '#0a0820', '#0a0820']}
@@ -67,7 +80,7 @@ const DetailsScreen = () => {
                 <View style={styles.sliderContainer}>
 
                     <View style={styles.headerContainer}>
-                        <Header />
+                        <Header onShare={onShare} />
                     </View>
 
                     <ImageSlider
@@ -92,9 +105,12 @@ const DetailsScreen = () => {
                 <RatingsReviews />
                 <SimilarProducts />
                 <YouMayLike />
-                <BottomActions />
 
             </ScrollView>
+
+            <BottomActions />
+
+
 
         </LinearGradient>
     );

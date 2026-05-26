@@ -14,6 +14,7 @@ export type StackParamList = {
   CategoryItem: undefined;
   SearchScreen: undefined;
   DetailsScreen: undefined;
+  SizeChart: undefined;
 };
 
 export type TabParamList = {

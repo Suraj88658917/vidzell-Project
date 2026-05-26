@@ -13,6 +13,7 @@ import Notification from "../screens/appScreens/notification/Notification"
 import CategoryItem from "../screens/appScreens/categoryScreen/components/CategoryItem"
 import SearchScreen from "../screens/appScreens/SearchScreen/SearchScreen";
 import DetailsScreen from "../screens/appScreens/DetailsScreen/DetailsScreen"
+import SizeChart from "../screens/appScreens/SizeChart/SizeChart"
 
 import MainTabNavigator from "../navigation/MainTabNavigator";
 
@@ -38,6 +39,7 @@ const StackNavigator = () => {
       <Stack.Screen name="CategoryItem" component={CategoryItem} />
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
+      <Stack.Screen name="SizeChart" component={SizeChart} />
 
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
 

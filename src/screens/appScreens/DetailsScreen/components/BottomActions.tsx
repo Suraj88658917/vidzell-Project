@@ -56,18 +56,32 @@ const BottomActions: React.FC = () => {
 
                         <TouchableOpacity
                             activeOpacity={0.8}
-                            onPress={() => setCount(prev => prev > 1 ? prev - 1 : 1)}
+                            onPress={() => {
+
+                                if (count === 1) {
+                                    setAddedToCart(false);
+                                    return;
+                                }
+
+                                setCount(prev => prev - 1);
+                            }}
                         >
-                            <Text style={styles.counterBtnText}>−</Text>
+                            <Text style={styles.counterBtnText}>
+                                −
+                            </Text>
                         </TouchableOpacity>
 
-                        <Text style={styles.countText}>{count}</Text>
+                        <Text style={styles.countText}>
+                            {count}
+                        </Text>
 
                         <TouchableOpacity
                             activeOpacity={0.8}
                             onPress={() => setCount(prev => prev + 1)}
                         >
-                            <Text style={styles.counterBtnText}>+</Text>
+                            <Text style={styles.counterBtnText}>
+                                +
+                            </Text>
                         </TouchableOpacity>
 
                     </View>
@@ -85,16 +99,16 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         paddingHorizontal: wp('4%'),
-        marginBottom: hp('4%'),
+        marginBottom: hp('3%'),
     },
 
     btnRow: {
         flexDirection: 'row',
         gap: wp('3%'),
         alignItems: 'center',
+        marginTop: hp("2%")
     },
 
-    // ── Buy Now ──
     buyNowBtn: {
         width: wp('45%'),
         height: hp('5.5%'),

@@ -35,6 +35,12 @@
 		<true/>
 	</dict>
 
+	<key>NSPhotoLibraryUsageDescription</key>
+<string>Need access to photos for sharing images</string>
+
+<key>NSPhotoLibraryAddUsageDescription</key>
+<string>Need permission to save and share photos</string>
+
 	<!-- Camera -->
 <key>NSCameraUsageDescription</key>
 <string>This app needs access to the camera to capture photos and videos.</string>

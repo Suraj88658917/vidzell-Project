@@ -15,7 +15,11 @@ type RootStackParamList = {
     Details: { id: number };
 };
 
-const Header = () => {
+interface HeaderProps {
+    onShare: () => void;
+}
+
+const Header = ({ onShare }: HeaderProps) => {
     const navigation = useNavigation<NavigationProp<RootStackParamList>>();
     const [isLiked, setIsLiked] = useState(false);
 
@@ -50,6 +54,7 @@ const Header = () => {
                 <TouchableOpacity
                     style={styles.iconBtn}
                     activeOpacity={0.7}
+                    onPress={onShare}
                 >
                     <Send width={wp('22%')} height={wp('20%')} style={{ marginTop: hp("3%") }} />
                 </TouchableOpacity>

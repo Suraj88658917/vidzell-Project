@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     StyleSheet,
     FlatList,
@@ -9,14 +9,19 @@ import {
     NativeSyntheticEvent,
     NativeScrollEvent,
     TouchableOpacity,
-    StatusBar
+    StatusBar,
 } from 'react-native';
-import { wp, hp } from "../../../../utils/responsive"
-import { FONTS } from '../../../../utils/fonts';
-import Upperblur from "../../../../assets/images/upperblur.svg"
-import Lowerblur from "../../../../assets/images/lowerblur.svg"
 
-const { width: SCREEN_WIDTH } = Dimensions.get('window');
+import { wp, hp } from '../../../../utils/responsive';
+import { FONTS } from '../../../../utils/fonts';
+
+import Upperblur from '../../../../assets/images/upperblur.svg';
+import Lowerblur from '../../../../assets/images/lowerblur.svg';
+
+import SimilarProductsModal from './SimilarProductsModal';
+
+const { width: SCREEN_WIDTH } =
+    Dimensions.get('window');
 
 type SliderItem = {
     id: string;
@@ -32,70 +37,126 @@ type Props = {
     onIndexChange: (index: number) => void;
 };
 
-const ImageSlider = ({ data, activeIndex, onIndexChange }: Props) => {
-    const flatListRef = useRef<FlatList>(null);
+const ImageSlider: React.FC<Props> = ({
+    data,
+    activeIndex: _activeIndex,
+    onIndexChange,
+}) => {
 
-    const onScroll = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const flatListRef =
+        useRef<FlatList>(null);
+
+    const [showModal, setShowModal] =
+        useState<boolean>(false);
+
+    const onScroll = (
+        e: NativeSyntheticEvent<NativeScrollEvent>,
+    ) => {
+
         const index = Math.round(
-            e.nativeEvent.contentOffset.x / SCREEN_WIDTH
+            e.nativeEvent.contentOffset.x /
+            SCREEN_WIDTH,
         );
+
         onIndexChange(index);
     };
 
     return (
         <View style={styles.sliderOuter}>
+
             <StatusBar
                 barStyle="light-content"
                 translucent
                 backgroundColor="transparent"
             />
+
             <FlatList
                 ref={flatListRef}
                 data={data}
                 horizontal
                 pagingEnabled
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => item.id}
+                keyExtractor={item => item.id}
                 onScroll={onScroll}
                 scrollEventThrottle={16}
-
                 renderItem={({ item }) => (
+
                     <View style={styles.imageWrapper}>
-                        <Upperblur style={styles.upperblur} />
+
+                        <Upperblur
+                            style={styles.upperblur}
+                        />
+
                         <Image
                             source={item.image}
                             style={styles.image}
                             resizeMode="cover"
                         />
-                        <Lowerblur style={styles.lowerblur} />
 
-                        {item.image2 && item.Rate ? (
-                            <View style={styles.ratingBadge}>
-                                <TouchableOpacity style={{ flexDirection: "row", gap: wp('1%') }}>
-                                    <Text style={styles.rateText}>{item.Rate}</Text>
+                        <Lowerblur
+                            style={styles.lowerblur}
+                        />
+
+                        {item.image2 &&
+                            item.Rate ? (
+
+                            <View
+                                style={styles.ratingBadge}
+                            >
+
+                                <View
+                                    style={styles.ratingRow}
+                                >
+
+                                    <Text
+                                        style={styles.rateText}
+                                    >
+                                        {item.Rate}
+                                    </Text>
+
                                     <Image
                                         source={item.image2}
                                         style={styles.starIcon}
                                         resizeMode="contain"
                                     />
-                                </TouchableOpacity>
+
+                                </View>
 
                             </View>
+
                         ) : null}
 
+                        {/* Similar Products */}
                         {item.image3 ? (
-                            <TouchableOpacity style={styles.similarImage}>
+
+                            <TouchableOpacity
+                                activeOpacity={0.8}
+                                onPress={() =>
+                                    setShowModal(true)
+                                }
+                                style={styles.similarImage}
+                            >
+
                                 <Image
                                     source={item.image3}
                                     style={styles.similarIcon}
                                     resizeMode="cover"
                                 />
+
                             </TouchableOpacity>
+
                         ) : null}
 
                     </View>
                 )}
             />
+
+            {/* Modal */}
+            <SimilarProductsModal
+                visible={showModal}
+                onClose={() => setShowModal(false)}
+            />
+
         </View>
     );
 };
@@ -103,6 +164,7 @@ const ImageSlider = ({ data, activeIndex, onIndexChange }: Props) => {
 export default ImageSlider;
 
 const styles = StyleSheet.create({
+
     sliderOuter: {
         flex: 1,
     },
@@ -117,19 +179,22 @@ const styles = StyleSheet.create({
         width: wp('100%'),
         height: '100%',
         borderRadius: wp('0.5%'),
-        marginTop: hp('7%')
+        marginTop: hp('7%'),
     },
 
     ratingBadge: {
         position: 'absolute',
         right: wp('3%'),
         bottom: hp('1%'),
-        flexDirection: 'row',
-        alignItems: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 1)',
+        backgroundColor: '#ffffff',
         paddingHorizontal: wp('2.5%'),
         paddingVertical: hp('0.6%'),
-        borderRadius: wp('1.5%'),
+        borderRadius: wp('2%'),
+    },
+
+    ratingRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
         gap: wp('1%'),
     },
 
@@ -139,7 +204,7 @@ const styles = StyleSheet.create({
     },
 
     rateText: {
-        color: '#000000ff',
+        color: '#000',
         fontSize: wp('3.2%'),
         fontFamily: FONTS.regular,
     },
@@ -160,7 +225,7 @@ const styles = StyleSheet.create({
     },
 
     upperblur: {
-        position: "absolute",
+        position: 'absolute',
         top: 0,
         left: 0,
         right: 0,
@@ -168,11 +233,12 @@ const styles = StyleSheet.create({
         width: wp('100%'),
         height: hp('35%'),
     },
+
     lowerblur: {
         position: 'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        zIndex: 0.2,
-    }
+        zIndex: 0.3,
+    },
 });
