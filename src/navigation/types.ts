@@ -15,6 +15,20 @@ export type StackParamList = {
   SearchScreen: undefined;
   DetailsScreen: undefined;
   SizeChart: undefined;
+  Review: undefined;
+  NewAddress: undefined;
+  SelectDeliveryLocation: undefined;
+  EditAddress: {
+    address: {
+      id: string;
+      label: string;
+      pincode: string;
+      address: string;
+      phone: string;
+      city?: string;
+      state?: string;
+    };
+  };
 };
 
 export type TabParamList = {

@@ -24,7 +24,7 @@ const Button: React.FC<Props> = ({
   onPress,
   style,
   textStyle,
-   disabled = false,
+  disabled = false,
 }) => {
   return (
     <View style={styles.container}>
@@ -46,13 +46,13 @@ export default Button;
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%", 
+    width: "100%",
     marginTop: hp("1%"),
   },
 
   button: {
-    height: hp("6%"), 
-     borderRadius: wp("2.5%"), 
+    height: hp("6%"),
+    borderRadius: wp("2.5%"),
     justifyContent: "center",
     alignItems: "center",
   },
@@ -60,6 +60,6 @@ const styles = StyleSheet.create({
   text: {
     color: "#fff",
     fontSize: wp("4%"),
-    fontFamily:FONTS.semiBold
+    fontFamily: FONTS.semiBold
   },
 });

@@ -10,12 +10,14 @@ import BlueTick from "../../assets/images/BlueTick.svg";
 import { hp, wp } from "../../utils/responsive";
 import { FONTS } from "../../utils/fonts";
 
-type ModalType = "OTP" | "REGISTER";
+type ModalType = "OTP" | "REGISTER" | "ADDRESS" | "EDIT_ADDRESS";
 
 type Props = {
   visible: boolean;
   type?: ModalType;
   onClose?: () => void;
+  title?: string;
+  subtitle?: string;
 };
 
 const SUCCESS_TEXTS: Record<ModalType, { title: string; subtitle: string }> = {
@@ -27,6 +29,14 @@ const SUCCESS_TEXTS: Record<ModalType, { title: string; subtitle: string }> = {
     title: "Verification Successfully!",
     subtitle:
       "Your mobile number has been verified and\n your account has been created\n successfully.",
+  },
+  ADDRESS: {
+    title: "New Address Added",
+    subtitle: "New Address Added Successfully",
+  },
+  EDIT_ADDRESS: {
+    title: "Address Updated!",
+    subtitle: "Your Address has been Updated Successfully",
   },
 };
 

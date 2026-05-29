@@ -10,7 +10,7 @@ import {
 
 import { FONTS } from '../../../../utils/fonts';
 import { wp, hp } from '../../../../utils/responsive';
-
+import LocationModal from './LocationModal';
 import DeliveryIcon from '../../../../assets/images/DeliveryIcon.svg';
 
 const deliveryServicesData = [
@@ -25,6 +25,7 @@ const deliveryServicesData = [
 const DeliveryServices = () => {
 
     const [pincode, setPincode] = useState('');
+    const [modalVisible, setModalVisible] = useState(false);
 
     const renderDeliveryItem = ({ item }: { item: { id: string, type: string, date: string } }) => {
 
@@ -73,7 +74,7 @@ const DeliveryServices = () => {
                 />
 
                 <TouchableOpacity
-                    onPress={() => setPincode('')}
+                    onPress={() => setModalVisible(true)}
                 >
                     <Text style={styles.changeText}>
                         Change
@@ -90,6 +91,14 @@ const DeliveryServices = () => {
                 scrollEnabled={false}
                 contentContainerStyle={{
                     gap: hp('1.5%'),
+                }}
+            />
+
+            <LocationModal
+                visible={modalVisible}
+                onClose={() => setModalVisible(false)}
+                onAddAddress={() => {
+                    console.log('Add Address triggered from LocationModal');
                 }}
             />
 

@@ -7,6 +7,7 @@ import {
     Image,
     TouchableOpacity,
 } from 'react-native';
+import { useNavigation, NavigationProp } from '@react-navigation/native';
 import { FONTS } from '../../../../utils/fonts';
 import { wp, hp } from '../../../../utils/responsive';
 import StarIcon from '../../../../assets/images/Staricon.svg';
@@ -63,58 +64,66 @@ const ReviewCard: React.FC<{ item: Review; index: number }> = ({
 }) => {
     return (
         <View>
-            <View style={styles.card}>
+            <TouchableOpacity>
+                <View style={styles.card}>
 
-                <View style={styles.topRow}>
+                    <View style={styles.topRow}>
 
-                    <View style={styles.userRow}>
-                        <Image
-                            source={item.avatar}
-                            style={styles.avatar}
-                            resizeMode="cover"
-                        />
-                        <View style={styles.userInfo}>
-                            <Text style={styles.name}>{item.name}</Text>
-                            <Text style={styles.time}>{item.time}</Text>
-                        </View>
-                    </View>
 
-                    <View style={styles.ratingBadge}>
-                        <Text style={styles.ratingText}>{item.rating}</Text>
-                        <StarIcon width={wp('3.5%')} height={wp('3.5%')} />
-                    </View>
-
-                </View>
-
-                <Text style={styles.reviewText}>{item.review}</Text>
-
-                {item.images && item.images.length > 0 && (
-                    <FlatList
-                        data={item.images}
-                        horizontal
-                        scrollEnabled={false}
-                        keyExtractor={(img: ReviewImage) => img.id}
-                        contentContainerStyle={styles.imageList}
-                        renderItem={({ item: img }: { item: ReviewImage }) => (
+                        <View style={styles.userRow}>
                             <Image
-                                source={img.uri}
-                                style={styles.reviewImage}
+                                source={item.avatar}
+                                style={styles.avatar}
                                 resizeMode="cover"
                             />
-                        )}
-                    />
-                )}
+                            <View style={styles.userInfo}>
+                                <Text style={styles.name}>{item.name}</Text>
+                                <Text style={styles.time}>{item.time}</Text>
+                            </View>
+                        </View>
 
-            </View>
+
+                        <View style={styles.ratingBadge}>
+                            <Text style={styles.ratingText}>{item.rating}</Text>
+                            <StarIcon width={wp('3.5%')} height={wp('3.5%')} />
+                        </View>
+
+                    </View>
+
+                    <Text style={styles.reviewText}>{item.review}</Text>
+
+                    {item.images && item.images.length > 0 && (
+                        <FlatList
+                            data={item.images}
+                            horizontal
+                            scrollEnabled={false}
+                            keyExtractor={(img: ReviewImage) => img.id}
+                            contentContainerStyle={styles.imageList}
+                            renderItem={({ item: img }: { item: ReviewImage }) => (
+                                <Image
+                                    source={img.uri}
+                                    style={styles.reviewImage}
+                                    resizeMode="cover"
+                                />
+                            )}
+                        />
+                    )}
+
+                </View>
+            </TouchableOpacity>
 
             {index < REVIEWS_DATA.length - 1 && (
                 <View style={styles.divider} />
             )}
+
         </View>
+
     );
 };
 
 const RatingsReviews: React.FC = () => {
+    const navigation = useNavigation<NavigationProp<any>>();
+
     return (
         <View style={styles.container}>
 
@@ -138,6 +147,7 @@ const RatingsReviews: React.FC = () => {
             <TouchableOpacity
                 style={styles.viewAllBtn}
                 activeOpacity={0.8}
+                onPress={() => navigation.navigate('Review')}
             >
                 <Text style={styles.viewAllText}>View all Reviews</Text>
             </TouchableOpacity>

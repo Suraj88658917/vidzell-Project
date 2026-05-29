@@ -14,6 +14,10 @@ import CategoryItem from "../screens/appScreens/categoryScreen/components/Catego
 import SearchScreen from "../screens/appScreens/SearchScreen/SearchScreen";
 import DetailsScreen from "../screens/appScreens/DetailsScreen/DetailsScreen"
 import SizeChart from "../screens/appScreens/SizeChart/SizeChart"
+import Review from "../screens/appScreens/DetailsScreen/components/Review"
+import NewAddress from "../screens/appScreens/addressFlow/NewAddress"
+import SelectDeliveryLocation from "../screens/appScreens/SelectDeliveryLocation/SelectDeliveryLocation"
+import EditAddress from "../screens/appScreens/editAddress/EditAddress"
 
 import MainTabNavigator from "../navigation/MainTabNavigator";
 
@@ -40,6 +44,11 @@ const StackNavigator = () => {
       <Stack.Screen name="SearchScreen" component={SearchScreen} />
       <Stack.Screen name="DetailsScreen" component={DetailsScreen} />
       <Stack.Screen name="SizeChart" component={SizeChart} />
+      <Stack.Screen name="Review" component={Review} />
+
+      <Stack.Screen name="NewAddress" component={NewAddress} />
+      <Stack.Screen name="SelectDeliveryLocation" component={SelectDeliveryLocation} />
+      <Stack.Screen name="EditAddress" component={EditAddress} />
 
       <Stack.Screen name="MainTabs" component={MainTabNavigator} />
 
